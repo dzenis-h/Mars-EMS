@@ -8,9 +8,10 @@ ___
 > > * **Sails** as a MVC Node framework,
 > > * **MongoDB** as a local storage,
 > > * **Bootstrap** for a better responsiveness,
+> > * **jQuery & Lodash** as helper libraries,
 > > * **GAS** (Google Apps Scripts),
 > > * **Google OAuth2**, 
-> > * **Google Spreadsheets API**
+> > * **Google Drive & Spreadsheets APIs**
 > > * ... and so much more ...
 ___
 
