@@ -10,10 +10,11 @@ ___
 > > * **Sails** as a MVC Node framework,
 > > * **MongoDB** as a local storage,
 > > * **Bootstrap** for a better responsiveness,
+> > * **jQuery & Lodash** as helper libraries,
 > > * **GAS** (Google Apps Scripts),
 > > * **Google OAuth2**, 
-> > * **Google Spreadsheets API**
+> > * **Google Drive & Spreadsheets APIs**
 > > * ... and so much more ...
 ___
 
-> ### This is a work in process, and as I go along I'll update instructions. Currently working on the frontend.
+> ##### This is a work in process, and as I go along I'll update instructions. Currently working on the frontend.
