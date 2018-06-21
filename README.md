@@ -2,6 +2,8 @@ ___
 > #### This is an **EMS software** - [Employee management system] that can help companies reduce their time spent on salaries, penalties, bonuses and a lot of other things regarding the accounting department, as well as many things regarding HR department [adding a new employee is only a few clicks away, and giving a end date is only a click away]. It contains many other features, like giving employees loans, tracking installments, making annual/ monthly reports, and so much more. It looks great. It uses **ReactJS** on the frontend and **NodeJS** on the backend.
 ___
 > >
+> > <img src="https://github.com/BiggaHD/Automated-Accountant/blob/master/stack.svg" height="450" width="600">
+
 > #### Among other things it uses:
 > > * **React** on the fronend,
 > > * **Redux** for state management,
