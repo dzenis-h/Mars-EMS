@@ -1,0 +1,8 @@
+module.exports = {
+  spreadsheetSettings: {
+    spreadsheetId: '1ycMFHBzXTKPVjcjGBU2mKUncClexCKLflO4FloYlIEw',
+    employeeSheetId: 'Employees',
+    templateId:1157810328,
+    accountantSheetName:'Settings'
+  }
+}
