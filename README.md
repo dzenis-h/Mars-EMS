@@ -9,6 +9,7 @@ ___
 > > * **Redux** for state management,
 > > * **Sails** as a MVC Node framework,
 > > * **MongoDB** as a local storage,
+> > * **mLab** as a remote MongoDB storage,
 > > * **Bootstrap** for a better responsiveness,
 > > * **jQuery & Lodash** as helper libraries,
 > > * **GAS** (Google Apps Scripts),
