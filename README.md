@@ -5,6 +5,7 @@ ___
 > #### Among other things it uses:
 > > * **React** on the fronend,
 > > * **Redux** for state management,
+> > * **React Router** for better navigation,
 > > * **Sails** as a MVC Node framework,
 > > * **MongoDB** as a local storage,
 > > * **mLab** as a remote MongoDB storage,
