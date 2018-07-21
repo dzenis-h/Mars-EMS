@@ -1,8 +1,8 @@
 # In order to run and use the app:
 
 ⦁	Run NPM install in both folders:
-BACKEND folder ( JUPITER-dev\root\backend ).
-FRONTEND folder (  JUPITER-dev\root\frontend ).
+###### BACKEND folder ( JUPITER-dev\root\backend ).
+###### FRONTEND folder (  JUPITER-dev\root\frontend ).
 
 ⦁	Run an instance of  your local MongoDB:
 	mongod	[Important – this needs to start first]
@@ -11,9 +11,9 @@ FRONTEND folder (  JUPITER-dev\root\frontend ).
 ⦁	Run the following command inside of the frontend folder:
 	npm start
 ⦁	Login using your Gmail account:
-	yourMail@gmail.com
+	yourMail@ gmail.com
 
 ### NOTE: The mail must be in the listed in this file:  
-JUPITER-dev\root\frontend\src\config\config.js
+###### JUPITER-dev\root\frontend\src\config\config.js
 
 After you get redirected, copy the code recieved from Google, go back to localhost:3000 and paste it into your app.
