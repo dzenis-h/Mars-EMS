@@ -78,11 +78,11 @@ class EmployeeStats extends Component {
         let finalForamt = _.sortBy(workedDates, function(o) { return new moment(o.date); }).reverse();
 
         const columns = [{
-            dataField: 'year',
-            text: 'YEAR'
+                dataField: 'year',
+                text: 'YEAR'
             }, {
-            dataField: 'month',
-            text: 'MONTH'
+                dataField: 'month',
+                text: 'MONTH'
             }, {    
                 dataField: 'totalGrossSalary',
                 text: 'GROSS'
