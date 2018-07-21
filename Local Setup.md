@@ -1,6 +1,6 @@
 # In order to run and use the app:
 
-⦁	Run NPM install in both folders:
+###### ⦁	 Run NPM install in both folders:
 ###### BACKEND folder ( JUPITER-dev\root\backend ).
 ###### FRONTEND folder (  JUPITER-dev\root\frontend ).
 
