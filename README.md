@@ -19,3 +19,5 @@ ___
 > > <img src="https://github.com/BiggaHD/Automated-Accountant/blob/master/stack.svg" height="450" width="600">
 
 > #### In order to use this app, you'll have to set up your own Google Sheets API, get the necessary credentials, and replace them in this project. That needs to be done in the config.js files [backend & frontend]. Also, I recommend checking out the 'Local Setup' docs which you can find in this repo to get you started. Additionally, this is a work in process, and as I go along I'll update instructions. Currently working on adding new features.
+
+> ### Deployed on Heroku: https://mars-ems.herokuapp.com
