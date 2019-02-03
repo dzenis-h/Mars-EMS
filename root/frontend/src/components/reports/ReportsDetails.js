@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import DetailsApi from '../../api/reportsDetailsApi';
-import { ArrowLeft, UserCheck, Activity, ArrowRight } from 'react-feather';
+import { ArrowLeft, Activity } from 'react-feather';
 import {Link} from "react-router-dom";
 import moment from 'moment';
 import {PieChart} from 'react-easy-chart';   
 import axios  from 'axios';
 import ReactLoading from 'react-loading';
-import * as $ from 'jquery';
 
 
 class ReportsDetails extends Component {
@@ -206,12 +205,22 @@ class ReportsDetails extends Component {
                     handSalary.push(ex.handSalary);  
                 });
 
+        // Generate Ids for the table
+        function* createIds() {
+            let id = 1;
+            while (true) {
+                yield id++;
+            }
+        }
+
+        let getIds = createIds();
+
         // Preparing the data forrendering
         const dataTable = fullNames
             .map((item, idx) => {
                 return (
                     <tr key={item}>
-                        <td>{}</td>
+                        <td>{getIds.next().value}</td>
                         <td>{item}</td>
                         <td>{netSalary[idx]}</td>
                         <td>{grossSalary[idx]}</td>
@@ -390,9 +399,3 @@ class ReportsDetails extends Component {
 }
 
 export default ReportsDetails;
-
-        // addSerialNumber = () => {
-        //     $('tr').each((i) => {
-        //         $(this).find('td:nth-child(1)').html(i + 1);
-        //     });
-        // };
