@@ -120,7 +120,7 @@ class PrimaryLayout extends Component {
             />
             <Route exact path="/about" component={About} />
 
-            <Redirect to="/login" />
+            <Redirect to="/about" />
           </Switch>
         </main>
       </div>

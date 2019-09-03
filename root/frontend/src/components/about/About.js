@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { ArrowLeft, ArrowRight } from "react-feather";
 import ModalVideo from "react-modal-video";
 import Local_Setup from "../../dox/Local_Setup.pdf";
 import ImageComponent from "./ImageComponent";
@@ -48,13 +50,25 @@ class About extends Component {
           </span>
           <b>test_123</b>
         </p>
-        <hr />
+
+        {/* <div className="row navigation-row"> */}
+        <p>Roger that!</p>
+        <Link to="/login" className="btn btn-hollow">
+          <ArrowLeft size="18" className="button-left-icon" /> Go to the LOGIN
+          page
+        </Link>
+        {/* </div> */}
+
+        {/* <hr /> */}
         <p>
-          It uses two Google spreadsheets which are public and saved on my
-          Google Drive and with which, you'll be able to interact and test the
-          app to it's fullest. It also uses MongoDB (mLab) to store the
-          temporary data of the app. Nothing yours is ever saved and remember
-          you're using my Gmail account at the end of the day. {""} 😊
+          <span className="text-secondary">NOTE:</span> It uses two Google
+          spreadsheets which are public and saved on my Google Drive and with
+          which, you'll be able to interact and test the app to it's fullest.
+          You can find the links for them, and I hope you do if you check out
+          the instructions PDF file, which you can find in the bottom-right
+          corner. It also uses MongoDB (mLab) to store the temporary data of the
+          app. Nothing yours is ever saved and remember you're using my Gmail
+          account at the end of the day. {""} 😊
         </p>
         <p>
           If you have any further questions I'll be more than happy to answer
