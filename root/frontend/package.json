@@ -1,7 +1,8 @@
 {
-  "name": "jupiter",
+  "name": "mars-ems",
   "version": "0.1.0",
   "private": true,
+  "author": "Dzenis-H",
   "dependencies": {
     "axios": "^0.17.1",
     "bootstrap": "^3.3.7",

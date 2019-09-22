@@ -1,3 +1,0 @@
-[0327/144428.390:ERROR:registration_protocol_win.cc(84)] TransactNamedPipe: The pipe has been ended. (0x6D)
-[0429/025535.829:ERROR:file_io.cc(134)] WriteFile: The pipe is being closed. (0xE8)
-[0429/170827.748:ERROR:file_io.cc(134)] WriteFile: The pipe is being closed. (0xE8)

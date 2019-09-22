@@ -1,7 +1,11 @@
 // Here goes the client secret
-export const CLIENT_ID = '647284687775-i25ookgsa7c9k7h3a5gb99kl8bj3ougm.apps.googleusercontent.com';
+export const CLIENT_ID =
+  "870282256260-v6prtq04v67g06trdsbmmaskqk5jod6u.apps.googleusercontent.com";
 export const gapi = window.gapi;
-// Here goes the base URL (backend) that we use across all the ares of this app
-export const baseApiUrl= 'http://localhost:1337/';
+// Here goes the base URL (backend) that we use across all the areas of this app
+export const baseApiUrl = "https://hr-ems.herokuapp.com/server/";
 // Here we add emails that should have access to the app
-export const emails = ['test@gmail.com'];
+export const emails = [
+  "bigga.test.2018@gmail.com",
+  "dzenis.hankusic@gmail.com"
+];
