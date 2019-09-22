@@ -85,7 +85,7 @@ class Loans extends Component {
     this.setState(prevState => ({
       kredit: [...prevState.kredit, theLoan]
     }));
-    setTimeout(() => {
+    -setTimeout(() => {
       let LoansContent = Object.assign([], this.state.kredit);
       LoansContent.map(penal => {
         penal.employeeJMBG = penal.employee.jmbg;

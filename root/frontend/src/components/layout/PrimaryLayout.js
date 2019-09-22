@@ -14,6 +14,7 @@ import LoansContainerComponent from "../../containers/LoansContainerComponent";
 import About from "../../components/about/About";
 import Privacy from "../../components/about/PrivacyPolicy";
 import Terms from "../about/TermsAndConditions";
+import About from "../about/About";
 
 class PrimaryLayout extends Component {
   constructor(props) {
@@ -124,6 +125,8 @@ class PrimaryLayout extends Component {
             <Route exact path="/terms" component={Terms} />
             <Route exact path="/privacy" component={Privacy} />
             <Redirect to="/login" />
+
+            <Redirect to="/about" />
           </Switch>
         </main>
       </div>
