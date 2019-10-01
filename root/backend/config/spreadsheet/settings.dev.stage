@@ -1,8 +1,0 @@
-module.exports = {
-  spreadsheetSettings: {
-    spreadsheetId: '1v-V2JRNG0-ef5WX1LzB3rt9spZlrt8887Vco7MYplSo',
-    employeeSheetId: 'Employee',
-    templateId: 1273186766,
-    accountantSheetName:'Settings'
-  }
-}
