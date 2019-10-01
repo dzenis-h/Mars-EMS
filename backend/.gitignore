@@ -41,6 +41,7 @@
 
 config/local.js
 frontend
+client_secret.json
 
 
 
