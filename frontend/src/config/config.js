@@ -7,8 +7,7 @@
 // NOTE: Don't foret  similar for the backend -Look into the 'client_secret' JSON file for more info
 // Both of them have to point to the same project. There you'll choose 'Other client' aka Installed
 // Download the file and save inside of the root backend folder under the name 'client_secret.json'
-export const CLIENT_ID =
-  "946009106818-udtdforii1gjg3vsr0avcffnbijhbgrb.apps.googleusercontent.com";
+export const CLIENT_ID = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 
 export const gapi = window.gapi;
 
