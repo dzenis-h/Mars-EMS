@@ -1,16 +1,15 @@
-import axios from 'axios';
-import {baseApiUrl} from '../config/config';
+import axios from "axios";
+import { baseApiUrl } from "../config/config";
 
-const testApiUrl = baseApiUrl + 'reportsdetails/'
+const detailsApiUrl = baseApiUrl + "reportsdetails/";
 
 class DetailsApi {
- 
-    static getDetails() {
-        return axios({
-            method: 'get',
-            url: testApiUrl + 'getDetails'
-        })
-    }
+  static getDetails() {
+    return axios({
+      method: "get",
+      url: detailsApiUrl + "getDetails"
+    });
+  }
 }
 
 export default DetailsApi;

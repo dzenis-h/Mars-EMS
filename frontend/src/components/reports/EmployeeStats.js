@@ -21,22 +21,21 @@ class EmployeeStats extends Component {
     router: () => {}
   };
 
-  getEmployeeSalaryData = () => {
+  getEmployeeSalaryData = async () => {
     // Getting the selected employee
     const { item } = this.props.history.location.state;
 
-    return EmployeeApi.getEmployee(item).then(employee => {
-      this.setState(prevState => ({
-        currentEmployee: {
-          ...prevState.currentEmployee,
-          salaryInfo: Object.assign([], employee.data)
-        }
-      }));
-    });
+    const employee = await EmployeeApi.getEmployee(item);
+    this.setState(prevState => ({
+      currentEmployee: {
+        ...prevState.currentEmployee,
+        salaryInfo: Object.assign([], employee.data)
+      }
+    }));
   };
 
   componentDidMount() {
-    this.getEmployeeSalaryData(this.props);
+    this.getEmployeeSalaryData();
   }
 
   render() {

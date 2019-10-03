@@ -20,42 +20,41 @@
  */
 
 module.exports.connections = {
-
   /***************************************************************************
-  *                                                                          *
-  * Local disk storage for DEVELOPMENT ONLY                                  *
-  *                                                                          *
-  * Installed by default.                                                    *
-  *                                                                          *
-  ***************************************************************************/
+   *                                                                          *
+   * Local disk storage for DEVELOPMENT ONLY                                  *
+   *                                                                          *
+   * Installed by default.                                                    *
+   *                                                                          *
+   ***************************************************************************/
   localDiskDb: {
-    adapter: 'sails-disk'
+    adapter: "sails-disk"
   },
 
   /***************************************************************************
-  *                                                                          *
-  * MongoDB is the leading NoSQL database.                                   *
-  * http://en.wikipedia.org/wiki/MongoDB                                     *
-  *                                                                          *
-  * Run: npm install sails-mongo                                             *
-  *                                                                          *
-  ***************************************************************************/
+   *                                                                          *
+   * MongoDB is the leading NoSQL database.                                   *
+   * http://en.wikipedia.org/wiki/MongoDB                                     *
+   *                                                                          *
+   * Run: npm install sails-mongo                                             *
+   *                                                                          *
+   ***************************************************************************/
+  mongodbServer: {
+    adapter: "sails-mongo",
+    host: "localhost",
+    port: 27017,
+    // user: 'username', //optional
+    // password: 'password', //optional
+    database: "mars" //optional
+  }
+
   // mongodbServer: {
   //   adapter: 'sails-mongo',
-  //   host: 'localhost',
-  //   port: 27017,
-  //   // user: 'username', //optional
-  //   // password: 'password', //optional
-  //   database: 'mars' //optional
+  //   url    : 'mongodb://BiggaHD:Test123$@ds111410.mlab.com:11410/jupiter-dev'
   // }
-
-  mongodbServer: {
-    adapter: 'sails-mongo',
-    url    : 'mongodb://BiggaHD:Test123$@ds111410.mlab.com:11410/jupiter-dev'
-  }
-    /***************************************************************************
-  *                                                                          *
-  * More adapters: https://github.com/balderdashy/sails                      *
-  *                                                                          *
-  ***************************************************************************/
+  /***************************************************************************
+   *                                                                          *
+   * More adapters: https://github.com/balderdashy/sails                      *
+   *                                                                          *
+   ***************************************************************************/
 };

@@ -62,21 +62,21 @@ module.exports = {
           setTimeout(() => {
             let finalData = {};
 
-            let theYears = longReduce(uniqueYears); // returning unique and relevant years
-            let theMonths = longReduce(uniqueMonths); // returning unique and relevant months
+            let theYears = longReduce(uniqueYears).reverse(); // returning unique and relevant years
+            let theMonths = longReduce(uniqueMonths).reverse(); // returning unique and relevant months
             let longestSalary = longReduce(netSumArr); // returning the Longest running salary
 
-            // Getting the numer of  eployees depending on the date
+            // Getting the number of active employees depending on the date
             const activeEmps = Array.from(longestSalary, (_, i) =>
               netSumArr.reduce((a, arr) => a + Boolean(arr[i]), 0)
             );
 
             // Calculating the summed values of salary data
-            let neto = sumUp(netSumArr);
-            let gross = sumUp(grossSumArr);
-            let meals = sumUp(mealSumArr);
-            let taxes = sumUp(taxSumArr);
-            let hands = sumUp(handSumArr);
+            let neto = sumUp(netSumArr).reverse();
+            let gross = sumUp(grossSumArr).reverse();
+            let meals = sumUp(mealSumArr).reverse();
+            let taxes = sumUp(taxSumArr).reverse();
+            let hands = sumUp(handSumArr).reverse();
 
             // Preparing the final object for frontend
             finalData.yearsData = theYears;

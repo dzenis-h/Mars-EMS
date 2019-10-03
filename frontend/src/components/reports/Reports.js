@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import ReportsApi from "../../api/reportsApi";
 import { Activity } from "react-feather";
 import { Link } from "react-router-dom";
 import ReactLoading from "react-loading";
@@ -22,35 +21,22 @@ class Reports extends Component {
     };
   }
 
-  // Getting the backend data
+  // Getting the backend data through Redux
   getSalaryDetails = () => {
-    ReportsApi.getReports().then(res => {
-      console.log(res.data);
-
-      let years = res.data.yearsData.reverse();
-      let months = res.data.monthsData.reverse();
-
-      let net = res.data.netoData.reverse();
-      let gross = res.data.grossData.reverse();
-      let meals = res.data.mealsData.reverse();
-      let tax = res.data.taxesData.reverse();
-      let hand = res.data.handSalaryData.reverse();
-      let empNum = res.data.numOfEmps.reverse();
-
-      this.setState(() => ({
-        currentSession: {
-          yearsData: years,
-          monthsData: months,
-          netData: net,
-          grossData: gross,
-          mealsData: meals,
-          taxData: tax,
-          handSalaryData: hand,
-          employeeNum: empNum
-        },
-        isLoading: false
-      }));
-    });
+    const { reports } = this.props;
+    this.setState(() => ({
+      currentSession: {
+        yearsData: reports.yearsData,
+        monthsData: reports.monthsData,
+        netData: reports.netoData,
+        grossData: reports.grossData,
+        mealsData: reports.mealsData,
+        taxData: reports.taxesData,
+        handSalaryData: reports.handSalaryData,
+        employeeNum: reports.numOfEmps
+      },
+      isLoading: false
+    }));
   };
 
   componentDidMount() {
@@ -69,33 +55,36 @@ class Reports extends Component {
       employeeNum
     } = this.state.currentSession;
 
-    // Preparing the data forrendering
-    const dataTable = yearsData.map((item, idx) => {
-      let yearX = item;
-      let monthX = monthsData[idx];
-      let dev = {};
-      dev.relMonth = monthX;
-      dev.relYear = yearX;
-      return (
-        <tr key={yearX + monthX}>
-          <td>{item}</td>
-          <td>{monthsData[idx]}</td>
+    // Preparing the data for rendering
+    let dataTable;
+    if (yearsData) {
+      dataTable = yearsData.map((item, idx) => {
+        let yearX = item;
+        let monthX = monthsData[idx];
+        let dev = {};
+        dev.relMonth = monthX;
+        dev.relYear = yearX;
+        return (
+          <tr key={yearX + monthX}>
+            <td>{item}</td>
+            <td>{monthsData[idx]}</td>
 
-          <td>{netData[idx]}</td>
-          <td>{grossData[idx]}</td>
-          <td>{mealsData[idx]}</td>
-          <td>{taxData[idx]}</td>
-          <td>{handSalaryData[idx]}</td>
-          <td>{employeeNum[idx]}</td>
+            <td>{netData[idx]}</td>
+            <td>{grossData[idx]}</td>
+            <td>{mealsData[idx]}</td>
+            <td>{taxData[idx]}</td>
+            <td>{handSalaryData[idx]}</td>
+            <td>{employeeNum[idx]}</td>
 
-          <td className="table-actions">
-            <Link to={{ pathname: `/reports/details`, state: { dev } }}>
-              <Activity size="20" />
-            </Link>
-          </td>
-        </tr>
-      );
-    });
+            <td className="table-actions">
+              <Link to={{ pathname: `/reports/details`, state: { dev } }}>
+                <Activity size="20" />
+              </Link>
+            </td>
+          </tr>
+        );
+      });
+    }
 
     return (
       <div className="container">
@@ -123,7 +112,7 @@ class Reports extends Component {
                 </div>
               )}
 
-              {this.state.currentSession.netData.length > 0 && (
+              {this.state.currentSession.netData !== [] && (
                 <div className="portlet-body" style={{ marginTop: "20px" }}>
                   <table className="table table-striped">
                     <thead>

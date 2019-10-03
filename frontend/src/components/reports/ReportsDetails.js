@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import DetailsApi from "../../api/reportsDetailsApi";
+import React, { PureComponent } from "react";
 import { ArrowLeft, Activity } from "react-feather";
 import { Link } from "react-router-dom";
 import moment from "moment";
@@ -8,7 +7,11 @@ import axios from "axios";
 import ReactLoading from "react-loading";
 import { baseApiUrl } from "../../config/config";
 
-class ReportsDetails extends Component {
+import { connect } from "react-redux";
+import { saveSelectedDate } from "../../actions/selectedDateActions";
+import { getSpecificSalaryData } from "../../actions/reportsDetailsActions";
+
+class ReportsDetails extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,46 +24,44 @@ class ReportsDetails extends Component {
   }
 
   sendData = () => {
+    // Getting the data from previous view
     const { relYear } = this.props.history.location.state.dev;
     const { relMonth } = this.props.history.location.state.dev;
+    // Formating the date to be able to compare the later on on the backend
     const selectedMonth = moment()
       .month(relMonth)
       .format("MM");
-
     const finalSelect = parseInt(relYear + selectedMonth, 10);
-    const url = `${baseApiUrl}api`;
 
-    axios
+    this.props.saveSelectedDate(finalSelect); // Make sure Redux gets the selectedDate
+
+    const url = `${baseApiUrl}api`; // The endpoint
+
+    axios // Make the request
       .post(url, { selectedDate: finalSelect })
       .then(res => console.log("Data send"))
       .catch(err => console.error(err));
   };
 
   getEmployeeSalaryData = () => {
-    // const { relYear } = this.props.history.location.state.dev;
-    // const { relMonth } = this.props.history.location.state.dev;
-    // const selectedMonth = moment()
-    //   .month(relMonth)
-    //   .format("MM");
-
-    DetailsApi.getDetails().then(res => {
-      let first = res.data.names; // Getting the names
-      let second = Object.values(res.data.salaryInfo); // Getting the salary data
-      this.setState(prevState => ({
-        currentSession: {
-          ...prevState.currentSession,
-          salaryInfo: Object.assign(second),
-          fullNames: Object.assign(first)
-        },
-        isLoading: false
-      }));
+    const { details } = this.props;
+    this.setState({
+      currentSession: {
+        fullNames: details.names, // Storing the relevant names
+        salaryInfo: Object.values(details.salaryInfo) // Getting the salary data
+      },
+      isLoading: false
     });
   };
 
   componentWillMount() {
     this.sendData();
-    this.getEmployeeSalaryData(this.props);
-    setTimeout(() => this.setState({ isLoading: false }), 3000); // do your async call
+  }
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.getEmployeeSalaryData();
+    }, 2000); // The backend takes 1500ms to finish w/ calculations
   }
 
   render() {
@@ -84,12 +85,6 @@ class ReportsDetails extends Component {
 
     // FORMATING THE SELECTED DATE
     let displayDate = relMonth + " of " + relYear;
-    // const selectedMonth = moment()
-    //   .month(relMonth)
-    //   .format("MM");
-
-    // It's a number 201703
-    // const finalSelect = parseInt(relYear + selectedMonth, 10);
 
     // Getting the basic emp info used for stats
     let empData = [];
@@ -103,8 +98,7 @@ class ReportsDetails extends Component {
       });
     }
 
-    // BASIC FORMATTING
-
+    // BASIC FORMATTING:
     // GETTING THE GENDER DATA
     let maleArr = [];
     let femaleArr = [];
@@ -576,4 +570,11 @@ class ReportsDetails extends Component {
   }
 }
 
-export default ReportsDetails;
+const mapStateToProps = state => {
+  return { relevantDate: state.selectedDate, myData: state.reportsDetails };
+};
+
+export default connect(
+  mapStateToProps,
+  { saveSelectedDate, getSpecificSalaryData }
+)(ReportsDetails);

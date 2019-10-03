@@ -1,9 +1,14 @@
 {
   "name": "mars-ems",
-  "private": true,
-  "version": "1.5.0",
+  "version": "2.0.0",
+  "author": "Dzenis H.",
   "description": "Sails (backend) part of the application",
-  "keywords": [],
+  "private": true,
+  "keywords": [
+    "Sails",
+    "NodeJS",
+    "backend"
+  ],
   "dependencies": {
     "axios": "^0.18.1",
     "concurrently": "^3.6.1",
@@ -47,7 +52,6 @@
   "engines": {
     "node": "8.11.3"
   },
-  "author": "Dzenis H.",
   "license": "MIT",
   "devDependencies": {}
 }

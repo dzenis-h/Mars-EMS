@@ -1,37 +1,30 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
-import PropTypes from 'prop-types';
-import * as employeeActions from '../actions/employeeActions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import * as reportsActions from "../actions/reportsActions";
 import Reports from "../components/reports/Reports";
 
 class ReportsContainerComponent extends Component {
-    render() {
-        return (
-            <div>
-                <Reports 
-                        employees={this.props.employees}
-                        history={this.props.history}
-                    />
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div>
+        <Reports history={this.props.history} reports={this.props.reports} />
+      </div>
+    );
+  }
 }
 
-ReportsContainerComponent.propTypes = {
-    employees: PropTypes.array.isRequired,
-    actions: PropTypes.object.isRequired
+const mapStateToProps = state => {
+  return {
+    reports: state.reports
+  };
 };
 
-const mapStateToProps = (state) => {
-    return {
-        employees: state.employees,
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-        actions: bindActionCreators({...employeeActions}, dispatch)
-    };
-}
+ReportsContainerComponent.propTypes = {
+  reports: PropTypes.object
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(ReportsContainerComponent);
+export default connect(
+  mapStateToProps,
+  { reportsActions }
+)(ReportsContainerComponent);
