@@ -22,6 +22,7 @@ ___
 ___
 > # Instructions:
 In order to run & use this app locally: 
+
 Clone the repository:  git clone https://github.com/BiggaHD/Mars-EMS  
  
 ##### Install the necessary dependencies: Run NPM install in all three folders:  
@@ -55,5 +56,6 @@ This part is very important:  After you get redirected, copy the code received f
  
 Deployed version: To test it online please visit: [Mars-EMS](https://hr-ems.herokuapp.com)
 Login with the same email and password provided above, after redirect allow the app the permissions needed [ it's my mail anyways :) ], copy the code, go back, paste the code, submit and enjoy while testing it. If you want to test the app to its fullest, here are links for the 2 Google sheets used in this app:    
+
 a) [Employee spreadsheet](https://docs.google.com/spreadsheets/d/1vz26VMZW1Bn04dNx0wJYQb2jKO0AXVuLqz6tCR2WWJs/edit?usp=sharing) (used to manage employees, their salaries, status, bonuses, penalties, etc.).  
 b) [Accountant spreadsheet](https://docs.google.com/spreadsheets/d/1TcqyztMXuzbL5SPzO78lAL0HbOjlH_L9cURU5UzAqjs/edit?usp=sharing) (used to calculate salaries).
