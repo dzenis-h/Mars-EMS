@@ -39,7 +39,8 @@ Clone the repository:  git clone https://github.com/BiggaHD/Mars-EMS
 - For the backend, you’ll have to choose 'Other’ aka Installed. 
 - Download the file and save inside of the backend (it’s root) folder under the name 'client_secret.json'. 
 
-**NOTE:** Both of them have to point to the same project. Additionally, if you want to use a remote MongoDB storage, you’ll have to the connections.js file and change your preferences. The file is located inside of the backend\config\connections.js file. 
+**NOTE:** Both of them have to point to the same project. Additionally, if you want to use a remote MongoDB storage, you’ll have to the connections.js file and change your preferences. 
+The file is located inside of the backend\config\connections.js file. 
  
 ##### Now let’s start the project: 
 Run an instance of your local MongoDB:    mongod [ Important – this needs to start first ]  
