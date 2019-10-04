@@ -48,10 +48,10 @@ Run the following command inside of the root folder:   npm start
 
 NOTE: It will start the NodeJS backend and the ReactJS frontend at the same time. 
 
-#### It’s time to login: Login is restricted. Currently, there’s only one email with approval:  
-##### Email:     bigga.test.2018@gmail.com  
-##### Password:  test_1234  
-You can edit that list inside of the config file, located in: frontend\src\config\config.js 
+##### It’s time to login: Login is restricted. Currently, there’s only one email with approval:  
+###### Email:     **bigga.test.2018@gmail.com**  
+###### Password:  **test_1234**  
+You can edit that list inside of the config file, located in: **frontend\src\config\config.js**
  
 This part is very important:  After you get redirected, copy the code received from Google, go back to localhost: 3000 or Heroku (depending on where you're doing the testing), paste it into your app and confirm.  
  
