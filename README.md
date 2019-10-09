@@ -1,5 +1,11 @@
 ___
-> #### This is a **EMS software** - [Employee management system] that can help companies reduce their time spent on salaries, penalties, bonuses and a lot of other things regarding the accounting department, as well as many things regarding HR department [adding a new employee is only a few clicks away, and giving an end date is only a click away]. It contains many other features, like giving loans to employees, tracking their installments, making annual/ monthly reports, and so much more. It looks and feels great thanks to great structure and design, and even though it possesses a lot of features, the complexity is hidden from the end user, so it always appears easy to use, no matter what level of functionality you choose to use. It uses **ReactJS** on the frontend and **NodeJS** on the backend.
+> #### It's an **EMS software** - [employee management system] which was built to help companies reduce their time spent regarding the Accounting and HR departments.
+
+It helps with generating salaries, penalties, bonuses, etc. Employing a new staff member is only a few clicks away or giving an end date takes one click. 
+
+It contains many other features, like giving loans to employees, tracking their instalments, making annual/ monthly reports, and much more. It looks and feels great thanks to great structure and design, and even though it possesses many features, the complexity is hidden from the end-user. So it always appears easy to use, no matter what level of functionality you choose to use. 
+
+It uses **ReactJS** on the frontend and **NodeJS** on the backend.
 ___
 > >
 > #### Among other things it uses:
