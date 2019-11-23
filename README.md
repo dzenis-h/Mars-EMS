@@ -54,7 +54,7 @@ Run the following command inside of the root folder:   npm start
 
 NOTE: It will start the NodeJS backend and the ReactJS frontend at the same time. 
 
-##### It’s time to login:  Login restriction has been removed [ by default ]. To log in, you can use your Gmail account. 
+#### It’s time to login:  Login restriction has been removed (by default). To log in, you can use your Gmail account. 
 Previously, the login was restricted, and to log in you had to use the email which I was providing. If you’re still interested in changing the default behavior, you can achieve that, on a basic level, by editing the config file located in **frontend\src\config\config.js**
  
  
