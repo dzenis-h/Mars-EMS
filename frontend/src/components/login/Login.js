@@ -4,25 +4,24 @@ import Auth from "../../helper/auth";
 import PropTypes from "prop-types";
 import logo from "../../img/logo.png";
 import { Link } from "react-router-dom";
+
 // import * as config from "../../config/config";
 
 class Login extends Component {
   onSuccess = googleUser => {
-    // NOW EVERY GOOGLE ACCOUNT CAN LOGIN
-    Auth.setStorage(googleUser);
-    this.props.getLoggedUser(googleUser.profileObj.email);
-    this.props.history.push("/home");
+    // THE CODE UNDER IS FOR RESTRICTING PREMISSION TO SPECIFIC EMAILS
+    // THOSE EMAILs CAN BE CHANGED IN THE ./confg/config.js file
 
-    // THIS CODE UNDER IS FOR RESTRICTING PREMISSION TO SPECIFIC EMAILS
-    // THOSE EMAIL CAN BE CHANGED IN THE ./confg/config.js file
+    // NOTE: Curentlly, every GMail account has premission to Login
+    // Uncomment the following lines to change the behavior
 
     // const userHasPermission = config.emails.includes(
     //   googleUser.profileObj.email
     // );
     // if (userHasPermission) {
-    //   Auth.setStorage(googleUser);
-    //   this.props.getLoggedUser(googleUser.profileObj.email);
-    //   this.props.history.push("/home");
+    Auth.setStorage(googleUser);
+    this.props.getLoggedUser(googleUser.profileObj.email);
+    this.props.history.push("/home");
     // } else {
     //   Auth.signOut();
     //   this.props.removeLoggedUser();

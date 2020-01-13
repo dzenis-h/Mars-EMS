@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import SpreadSheetApi from "../../api/spreadsheetApi";
 import { confirmAlert } from "react-confirm-alert";
 import { XCircle } from "react-feather";
@@ -9,7 +9,7 @@ import PenaltyApi from "../../api/penaltyApi";
 import noPenaltiesIl from "../../img/no-penalties-illustration.png";
 import { ToastContainer, toast } from "react-toastify";
 
-class Home extends React.Component {
+class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -55,6 +55,7 @@ class Home extends React.Component {
       .then(res => {
         this.props.setGoogleSpreadsheetAuth();
         this.props.getEmployeesAsync();
+        this.props.getReportsAsync();
       })
       .catch(err => {
         alert("Code is invalid");
@@ -283,7 +284,7 @@ class Home extends React.Component {
                     <textarea
                       type="number"
                       className="form-control"
-                      id="penaltyValue"
+                      id="penaltyDescription"
                       placeholder="Enter Description"
                       name="description"
                       onChange={this.handleValueChange}

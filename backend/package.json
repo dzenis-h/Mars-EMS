@@ -1,14 +1,9 @@
 {
   "name": "mars-ems",
-  "version": "2.0.0",
-  "author": "Dzenis H.",
-  "description": "Sails (backend) part of the application",
   "private": true,
-  "keywords": [
-    "Sails",
-    "NodeJS",
-    "backend"
-  ],
+  "version": "1.5.0",
+  "description": "Sails (backend) part of the application",
+  "keywords": [],
   "dependencies": {
     "axios": "^0.18.1",
     "concurrently": "^3.6.1",
@@ -32,9 +27,8 @@
     "include-all": "^1.0.0",
     "jquery": "^3.4.1",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0",
+    "moment": "2.24.0",
     "node-fetch": "^2.3.0",
-    "nodemon": "^1.18.9",
     "rc": "^1.2.8",
     "sails": "0.12.14",
     "sails-disk": "~0.10.9",
@@ -52,6 +46,7 @@
   "engines": {
     "node": "8.11.3"
   },
+  "author": "Dzenis H.",
   "license": "MIT",
   "devDependencies": {}
 }

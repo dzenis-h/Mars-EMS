@@ -75,8 +75,11 @@ module.exports = {
         }
       });
     });
+    return res.json("Successfully deleted used data from previous month");
+  },
 
-    // Clearning the rest data [selectedDate]
+  // Clearning the rest data [selectedDate]
+  removeSelecetedDate: (req, res) => {
     Api.find().exec((err, response) => {
       if (err) {
         return res.serverError(err);
@@ -87,7 +90,5 @@ module.exports = {
         }
       });
     });
-
-    return res.json("Successfully deleted used data from previous month");
   }
 };

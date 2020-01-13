@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import { ArrowLeft, Activity } from "react-feather";
 import { Link } from "react-router-dom";
 import moment from "moment";
@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 import { saveSelectedDate } from "../../actions/selectedDateActions";
 import { getSpecificSalaryData } from "../../actions/reportsDetailsActions";
 
-class ReportsDetails extends PureComponent {
+class ReportsDetails extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,15 +36,15 @@ class ReportsDetails extends PureComponent {
     this.props.saveSelectedDate(finalSelect); // Make sure Redux gets the selectedDate
 
     const url = `${baseApiUrl}api`; // The endpoint
-
     axios // Make the request
       .post(url, { selectedDate: finalSelect })
-      .then(res => console.log("Data send"))
+      .then(res => console.log("Data send", finalSelect))
       .catch(err => console.error(err));
   };
 
   getEmployeeSalaryData = () => {
     const { details } = this.props;
+    console.log(details);
     this.setState({
       currentSession: {
         fullNames: details.names, // Storing the relevant names
@@ -61,7 +61,7 @@ class ReportsDetails extends PureComponent {
   componentDidMount() {
     setTimeout(() => {
       this.getEmployeeSalaryData();
-    }, 2000); // The backend takes 1500ms to finish w/ calculations
+    }, 2500); // The backend takes ~1500ms to finish w/ calculations
   }
 
   render() {
@@ -574,7 +574,7 @@ const mapStateToProps = state => {
   return { relevantDate: state.selectedDate, myData: state.reportsDetails };
 };
 
-export default connect(
-  mapStateToProps,
-  { saveSelectedDate, getSpecificSalaryData }
-)(ReportsDetails);
+export default connect(mapStateToProps, {
+  saveSelectedDate,
+  getSpecificSalaryData
+})(ReportsDetails);

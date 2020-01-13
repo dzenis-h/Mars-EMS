@@ -39,19 +39,19 @@ module.exports.connections = {
    * Run: npm install sails-mongo                                             *
    *                                                                          *
    ***************************************************************************/
-  mongodbServer: {
-    adapter: "sails-mongo",
-    host: "localhost",
-    port: 27017,
-    // user: 'username', //optional
-    // password: 'password', //optional
-    database: "mars" //optional
-  }
-
   // mongodbServer: {
   //   adapter: 'sails-mongo',
-  //   url    : 'mongodb://BiggaHD:Test123$@ds111410.mlab.com:11410/jupiter-dev'
+  //   host: 'localhost',
+  //   port: 27017,
+  //   // user: 'username', //optional
+  //   // password: 'password', //optional
+  //   database: 'mars' //optional
   // }
+
+  mongodbServer: {
+    adapter: "sails-mongo",
+    url: "mongodb://username:password$@ds111410.mlab.com:11410/project"
+  }
   /***************************************************************************
    *                                                                          *
    * More adapters: https://github.com/balderdashy/sails                      *

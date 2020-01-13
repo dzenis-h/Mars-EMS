@@ -14,7 +14,7 @@ export const getReportsAsync = () => {
       const reports = await ReportsApi.getReports();
       dispatch(getReports(reports.data));
     } catch (error) {
-      console.log("error while loading employees", error);
+      console.log("Error while loading reports", error);
       throw error;
     }
   };

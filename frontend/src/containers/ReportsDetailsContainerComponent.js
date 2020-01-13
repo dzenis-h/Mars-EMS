@@ -6,7 +6,7 @@ import * as employeeActions from "../actions/employeeActions";
 import * as detailsActions from "../actions/reportsDetailsActions";
 
 class ReportsDetailsContainerComponent extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.actions.getReportDetailsAsync();
   }
 

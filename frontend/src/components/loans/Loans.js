@@ -234,7 +234,7 @@ class Loans extends Component {
                     <input
                       type="number"
                       className="form-control"
-                      id="penaltyValue"
+                      id="loanAmount"
                       placeholder="Enter Amount"
                       name="amount"
                       onChange={this.handleValueChange}
@@ -246,7 +246,7 @@ class Loans extends Component {
                     <input
                       type="number"
                       className="form-control"
-                      id="penaltyValue"
+                      id="loanInstallment"
                       placeholder="Enter installment"
                       name="installment"
                       onChange={this.handleValueChange}
@@ -270,7 +270,7 @@ class Loans extends Component {
                     <textarea
                       type="number"
                       className="form-control"
-                      id="penaltyValue"
+                      id="loanDescription"
                       placeholder="Enter Description"
                       name="description"
                       onChange={this.handleValueChange}

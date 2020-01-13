@@ -16,7 +16,7 @@ const TermsandConditions = () => {
       <div className="row">
         <div className="col-md-12">
           <h1 className="text-secondary">Terms and Conditions</h1>
-          <b>Last updated: September 20, 2019</b>
+          <b>Last updated: November 21, 2019</b>
           <hr />
 
           <p>

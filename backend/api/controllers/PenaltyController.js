@@ -6,7 +6,6 @@
  */
 
 module.exports = {
-
   addBulk: (req, res) => {
     const body = req.body;
     for (const item of body) {
@@ -16,7 +15,7 @@ module.exports = {
           return;
         }
       });
-      res.ok('Penalties added successfully');
+      res.ok("Penalties successfully added");
     }
   },
 
@@ -27,10 +26,12 @@ module.exports = {
       if (err) {
         return res.serverError(err);
       }
-      const data = response.filter(item => item.date.getMonth() == params.month && item.date.getFullYear() == params.year)
+      const data = response.filter(
+        item =>
+          item.date.getMonth() == params.month &&
+          item.date.getFullYear() == params.year
+      );
       return res.json(data);
     });
   }
-
 };
-

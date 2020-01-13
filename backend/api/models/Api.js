@@ -6,14 +6,10 @@
  */
 
 module.exports = {
-
   attributes: {
-
     selectedDate: {
-      type: 'integer',
+      type: "integer",
       required: true
     }
-
   }
 };
-

@@ -25,7 +25,7 @@ class ImageComponent extends Component {
           onClickAway={() => this.handleShowDialog()}
         >
           <img
-            className="image"
+            className="openImageModal"
             src={this.props.img}
             onClick={this.handleShowDialog}
             alt={this.props.title}

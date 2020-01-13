@@ -24,7 +24,7 @@ export const getReportDetailsAsync = () => {
       const details = await DetailsApi.getDetails();
       dispatch(getReportsDetails(details.data));
     } catch (error) {
-      console.log("error while loading employees", error);
+      console.log("Error while loading reports data", error);
       throw error;
     }
   };

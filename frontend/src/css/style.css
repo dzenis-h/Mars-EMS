@@ -6445,7 +6445,7 @@ input {
 } /*Log in*/
 
 .container__login {
-  height: calc(100vh - 50px);
+  height: calc(100vh - 55px);
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
@@ -6546,27 +6546,6 @@ input {
 .support a {
   padding: 0.1rem;
   margin: 0.1rem;
-}
-
-.highlightedProject {
-  display: grid;
-  grid-gap: 0.7rem;
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.highlightedProject img {
-  width: 100%;
-  /* height: 70%; */
-  border: 3px #fff solid;
-  /* vertical-align: middle; */
-  /* top: 25%; */
-  /* left: 25%; */
-  margin-top: 10%;
-}
-
-.image {
-  width: 500px;
-  height: 650px !important;
 }
 
 .terms {
@@ -6798,4 +6777,26 @@ footer ul li a:focus {
 .intro ul li a:active,
 .intro ul li a:hover {
   text-decoration: none;
+}
+
+.crossed-text {
+  text-decoration: line-through;
+}
+
+.highlightedProject {
+  display: grid;
+  grid-gap: 0.7rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.highlightedProject img {
+  width: 100%;
+  padding: 3px;
+  border: 2px solid #ffff;
+  padding: 2px;
+}
+
+.openImageModal {
+  width: 500px;
+  height: 650px;
 }

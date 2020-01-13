@@ -6,97 +6,116 @@ const reportsService = require("../services/ReportsService");
 const url = require("../../config/baseUrl");
 
 module.exports = {
-  getReports: (req, res) => {
-    authentication.authenticate().then(auth => {
-      const sheets = google.sheets("v4");
-      sheets.spreadsheets.values.get(
-        {
-          auth: auth,
-          spreadsheetId: config.spreadsheetSettings.spreadsheetId,
-          range: config.spreadsheetSettings.employeeSheetId
-        },
-        (err, response) => {
-          if (err) {
-            res.serverError(err);
-            return;
-          }
-          const rows = response.values; // response-all cells
-          const updatedData = reportsService.giveMeEmps(rows);
-          const allEmps = reportsService.justNames(updatedData);
-
-          let allEmpsData = getSalaryData(allEmps);
-
-          let uniqueYears = [];
-          let uniqueMonths = [];
-
-          let netSumArr = [];
-          let grossSumArr = [];
-          let mealSumArr = [];
-          let taxSumArr = [];
-          let handSumArr = [];
-
-          setTimeout(() => {
-            allEmpsData.map(x => {
-              // Getting all the detailed data
-              let details = getDetails(x);
-              let data = Object.assign([], details);
-
-              // Preparing the year - month data
-              uniqueYears.push(data.year);
-              uniqueMonths.push(data.month);
-
-              // Making sure all values are 'NUMBERS' + pushing them into separate arrays
-              let netNum = data.net.map(Number);
-              netSumArr.push(netNum);
-              let grossNum = data.gross.map(Number);
-              grossSumArr.push(grossNum);
-              let mealNum = data.meal.map(Number);
-              mealSumArr.push(mealNum);
-              let taxNum = data.tax.map(Number);
-              taxSumArr.push(taxNum);
-              let handNum = data.hand.map(Number);
-              handSumArr.push(handNum);
-            });
-          }, 1100);
-
-          setTimeout(() => {
-            let finalData = {};
-
-            let theYears = longReduce(uniqueYears).reverse(); // returning unique and relevant years
-            let theMonths = longReduce(uniqueMonths).reverse(); // returning unique and relevant months
-            let longestSalary = longReduce(netSumArr); // returning the Longest running salary
-
-            // Getting the number of active employees depending on the date
-            const activeEmps = Array.from(longestSalary, (_, i) =>
-              netSumArr.reduce((a, arr) => a + Boolean(arr[i]), 0)
-            );
-
-            // Calculating the summed values of salary data
-            let neto = sumUp(netSumArr).reverse();
-            let gross = sumUp(grossSumArr).reverse();
-            let meals = sumUp(mealSumArr).reverse();
-            let taxes = sumUp(taxSumArr).reverse();
-            let hands = sumUp(handSumArr).reverse();
-
-            // Preparing the final object for frontend
-            finalData.yearsData = theYears;
-            finalData.monthsData = theMonths;
-            finalData.netoData = neto;
-            finalData.grossData = gross;
-            finalData.mealsData = meals;
-            finalData.taxesData = taxes;
-            finalData.handSalaryData = hands;
-            finalData.numOfEmps = activeEmps;
-
-            if (finalData.length === 0) {
-              res.err("No data found.");
-            } else {
-              res.ok(finalData);
-            }
-          }, 1500);
+  getReports: async (req, res) => {
+    const auth = await authentication.authenticate();
+    const sheets = google.sheets("v4");
+    sheets.spreadsheets.values.get(
+      {
+        auth: auth,
+        spreadsheetId: config.spreadsheetSettings.spreadsheetId,
+        range: config.spreadsheetSettings.employeeSheetId
+      },
+      (err, response) => {
+        if (err) {
+          res.serverError(err);
+          return;
         }
-      );
+        const rows = response.values; // response-all cells
+        const updatedData = reportsService.giveMeEmps(rows);
+        const allEmps = reportsService.justNames(updatedData);
+
+        const allEmpsData = getSalaryData(allEmps);
+
+        setTimeout(async () => {
+          const prepData = await getDetailedData(allEmpsData);
+          const finalData = await finalPreparation(prepData);
+
+          if (finalData.length === 0) {
+            res.err("No data found.");
+          } else {
+            res.ok(finalData);
+          }
+        }, 1200); // Some of these calculations are pretty heavy - TODO: Make it more efficient!
+      }
+    );
+  }
+};
+
+finalPreparation = async data => {
+  const finalData = {};
+
+  const theYears = await longReduce(data.uniqueYears); // returning unique and relevant years
+  const theMonths = await longReduce(data.uniqueMonths); // returning unique and relevant months
+  const longestSalary = await longReduce(data.netSumArr); // returning the Longest running salary
+
+  // Getting the numer of  eployees depending on the date
+  const activeEmps = Array.from(longestSalary, (_, i) =>
+    data.netSumArr.reduce((a, arr) => a + Boolean(arr[i]), 0)
+  );
+
+  // Calculating the summed values of salary data
+  const neto = sumUp(data.netSumArr);
+  const gross = sumUp(data.grossSumArr);
+  const meals = sumUp(data.mealSumArr);
+  const taxes = sumUp(data.taxSumArr);
+  const hands = sumUp(data.handSumArr);
+
+  // Preparing the final object for the frontend
+  finalData.yearsData = theYears;
+  finalData.monthsData = theMonths;
+  finalData.netoData = neto;
+  finalData.grossData = gross;
+  finalData.mealsData = meals;
+  finalData.taxesData = taxes;
+  finalData.handSalaryData = hands;
+  finalData.numOfEmps = activeEmps;
+
+  return finalData;
+};
+
+getDetailedData = async inputData => {
+  const prepData = {};
+
+  const uniqueYears = [];
+  const uniqueMonths = [];
+
+  const netSumArr = [];
+  const grossSumArr = [];
+  const mealSumArr = [];
+  const taxSumArr = [];
+  const handSumArr = [];
+
+  try {
+    await inputData.map(x => {
+      // Getting all the detailed data
+      const details = getDetails(x.reverse()); // Reversing the entire object, so the most recent data is send 1st
+      const data = Object.assign([], details);
+      // Preparing the year - month data
+      uniqueYears.push(data.year);
+      uniqueMonths.push(data.month);
+      // Making sure all values are 'NUMBERS' + pushing them into separate arrays
+      const netNum = data.net.map(Number);
+      netSumArr.push(netNum);
+      prepData.netSumArr = netSumArr;
+      const grossNum = data.gross.map(Number);
+      grossSumArr.push(grossNum);
+      prepData.grossSumArr = grossSumArr;
+      const mealNum = data.meal.map(Number);
+      mealSumArr.push(mealNum);
+      prepData.mealSumArr = mealSumArr;
+      const taxNum = data.tax.map(Number);
+      taxSumArr.push(taxNum);
+      prepData.taxSumArr = taxSumArr;
+      const handNum = data.hand.map(Number);
+      handSumArr.push(handNum);
+      prepData.handSumArr = handSumArr;
+      // ...
+      prepData.uniqueYears = uniqueYears;
+      prepData.uniqueMonths = uniqueMonths;
     });
+    return prepData;
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -117,7 +136,7 @@ longReduce = longest => {
 
 // Getting all salary data
 getSalaryData = emps => {
-  let salaryArr = [];
+  const salaryArr = [];
   emps.map(one => {
     getEmployee(one).then(two => {
       salaryArr.push(two.data);
@@ -125,9 +144,10 @@ getSalaryData = emps => {
   });
   return salaryArr;
 };
+
 // Summing the relevant salary data
 sumUp = array => {
-  let result = array.reduce(function(r, a) {
+  const result = array.reduce(function(r, a) {
     a.map(function(b, i) {
       r[i] = (r[i] || 0) + b;
     });
@@ -135,6 +155,7 @@ sumUp = array => {
   }, []);
   return result;
 };
+
 // Making the req to get the relevant salary info
 getEmployee = value => {
   return axios({
@@ -142,17 +163,18 @@ getEmployee = value => {
     url: `${url.baseUrl}getEmployee?employeeSheetName=${value}`
   });
 };
+
 // Preparing the specific data
 getDetails = data => {
-  let bigData = {};
+  const bigData = {};
 
-  let yearsArr = [];
-  let monthsArr = [];
-  let netArr = [];
-  let grossArr = [];
-  let mealArr = [];
-  let taxArr = [];
-  let handSalaryArr = [];
+  const yearsArr = [];
+  const monthsArr = [];
+  const netArr = [];
+  const grossArr = [];
+  const mealArr = [];
+  const taxArr = [];
+  const handSalaryArr = [];
 
   data.map(x => {
     yearsArr.push(x.year);
