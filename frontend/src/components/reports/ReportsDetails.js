@@ -3,9 +3,7 @@ import { ArrowLeft, Activity } from "react-feather";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { PieChart } from "react-easy-chart";
-import axios from "axios";
-import ReactLoading from "react-loading";
-import { baseApiUrl } from "../../config/config";
+import _ from "lodash";
 
 import { connect } from "react-redux";
 import { saveSelectedDate } from "../../actions/selectedDateActions";
@@ -18,63 +16,50 @@ class ReportsDetails extends Component {
       currentSession: {
         salaryInfo: [],
         fullNames: []
-      },
-      isLoading: true
+      }
     };
   }
 
-  sendData = () => {
-    // Getting the data from previous view
-    const { relYear } = this.props.history.location.state.dev;
-    const { relMonth } = this.props.history.location.state.dev;
-    // Formating the date to be able to compare the later on on the backend
-    const selectedMonth = moment()
-      .month(relMonth)
-      .format("MM");
-    const finalSelect = parseInt(relYear + selectedMonth, 10);
-
-    this.props.saveSelectedDate(finalSelect); // Make sure Redux gets the selectedDate
-
-    const url = `${baseApiUrl}api`; // The endpoint
-    axios // Make the request
-      .post(url, { selectedDate: finalSelect })
-      .then(res => console.log("Data send", finalSelect))
-      .catch(err => console.error(err));
-  };
-
-  getEmployeeSalaryData = () => {
+  // The relevant data already exists in the Redux store, use that
+  // -> [the user selected the same date, or is going back from the Employee Details component]
+  dataExists = () => {
     const { details } = this.props;
-    console.log(details);
     this.setState({
       currentSession: {
         fullNames: details.names, // Storing the relevant names
         salaryInfo: Object.values(details.salaryInfo) // Getting the salary data
-      },
-      isLoading: false
+      }
     });
   };
 
-  componentWillMount() {
-    this.sendData();
+  getEmployeeSalaryData = () => {
+    const { details } = this.props;
+    // if the props are available, set the state
+    if (!_.isEmpty(details)) {
+      this.setState({
+        currentSession: {
+          fullNames: details.names, // Storing the relevant names
+          salaryInfo: Object.values(details.salaryInfo) // Storing the salary data
+        }
+      });
+    }
+  };
+
+  componentWillReceiveProps(newProps) {
+    // if the props have changed, update the state
+    if (newProps.details !== this.props.details) {
+      this.getEmployeeSalaryData();
+    }
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.getEmployeeSalaryData();
-    }, 2500); // The backend takes ~1500ms to finish w/ calculations
+    // if we already have Report Details available use them, initially
+    if (!_.isEmpty(this.props.details)) {
+      this.dataExists();
+    }
   }
 
   render() {
-    if (this.state.isLoading) {
-      // if doing asyng things
-      return (
-        <div className={"col-md-12 col-md-offset-6"}>
-          <ReactLoading type={"bars"} color={"#48c6ef"} />
-          <p style={{ color: "#48C6EF", margin: "0px" }}> Loading ...</p>
-        </div>
-      );
-    } // render the loading component
-
     const { employees } = this.props;
 
     // GETTING THE SELECTED VALUES AS PROPS

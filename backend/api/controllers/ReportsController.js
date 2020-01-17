@@ -35,7 +35,7 @@ module.exports = {
           } else {
             res.ok(finalData);
           }
-        }, 1200); // Some of these calculations are pretty heavy - TODO: Make it more efficient!
+        }, 1500); // Some of these calculations are pretty heavy - TODO: Make it more efficient!
       }
     );
   }

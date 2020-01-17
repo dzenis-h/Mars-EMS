@@ -6,8 +6,7 @@ const moment = require("moment");
 moment.suppressDeprecationWarnings = true; // removing those Deprecation Warnings that aren't relavant
 const reportsService = require("../services/ReportsService");
 const url = require("../../config/baseUrl");
-
-const { removeSelecetedDate } = require("../controllers/ClearDataController");
+// const { removeSelecetedDate } = require("../controllers/ClearDataController");
 
 module.exports = {
   getDetails: async (req, res) => {
@@ -27,22 +26,29 @@ module.exports = {
         const rows = response.values; // response-all cells
         const updatedData = reportsService.giveMeEmps(rows);
 
-        const finalData = await finalDetailsPreparation(updatedData);
+        let finalData;
+
+        // console.log(await req.body);
+        if (req.body) {
+          // let hamza = 201811;
+          let { selectedDate } = req.body;
+          finalData = await finalDetailsPreparation(selectedDate, updatedData);
+        }
 
         // Sending the server data to frontend
         setTimeout(() => {
-          if (finalData.length === 0) {
+          if (updatedData.length === 0) {
             res.err("No data found.");
           } else {
             res.ok(finalData);
           }
-        }, 1800); // Some of these calculations are pretty heavy - TODO: Make it more efficient!
+        }, 1500); // Some of these calculations are pretty heavy - TODO: Make it more efficient!
       }
     );
   }
 };
 
-finalDetailsPreparation = async updatedData => {
+finalDetailsPreparation = async (datum, updatedData) => {
   const prepData = {};
 
   // Getting the relevant FULL salary info
@@ -50,8 +56,8 @@ finalDetailsPreparation = async updatedData => {
   const empData = [];
 
   try {
-    const apiData = await getApiData();
-    const preparingData = await relevantEmps(apiData, updatedData);
+    // const apiData = await getApiData();
+    const preparingData = await relevantEmps(datum, updatedData);
 
     // Sending the req to get the unique salary data
     preparingData.map(name => {
@@ -61,7 +67,7 @@ finalDetailsPreparation = async updatedData => {
           empData.push(name);
         })
         .then(data => {
-          return getRelevantSalary(salaryData, apiData).then(onlyRelevant => {
+          return getRelevantSalary(salaryData, datum).then(onlyRelevant => {
             prepData.names = empData;
             prepData.salaryInfo = onlyRelevant;
           });
@@ -77,12 +83,13 @@ getRelevantSalary = async (salaryData, selectedDate) => {
   return await relevantSalary(salaryData, selectedDate);
 };
 
-getApiData = async () => {
-  const res = await axios.get(`${url.baseUrl}/api`);
-  const selectedDate = res.data.pop().selectedDate; // Getting the 'selectedDate'
-
-  return selectedDate;
-};
+// getApiData = async () => {
+//   const res = await axios.get(`${url.baseUrl}/api`);
+//   const selectedDate = res.data.pop().selectedDate; // Getting the 'selectedDate'
+//   // removeSelecetedDate();
+//   return selectedDate;
+//   // return +201803;
+// };
 
 (relevantEmps = (date, data) => {
   let relevantNames = [];

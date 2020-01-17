@@ -64,8 +64,7 @@ class Home extends Component {
   };
 
   handleInputChange = event => {
-    const target = event.target;
-    this.setState({ code: target.value });
+    this.setState({ code: event.target.value });
   };
 
   handleEmployeeChange = selectedOption => {

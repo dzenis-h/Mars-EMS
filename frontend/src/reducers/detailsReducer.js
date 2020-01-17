@@ -1,7 +1,7 @@
 import initialState from "../initial/initialState";
 import * as actionTypes from "../actionTypes/actionTypes";
 
-const reportsReducer = (state = initialState.details, action) => {
+const reportsDetailReducer = (state = initialState.details, action) => {
   switch (action.type) {
     case actionTypes.GET_REPORTS_DETAILS:
       return Object.assign({}, action.data);
@@ -14,4 +14,4 @@ const reportsReducer = (state = initialState.details, action) => {
   }
 };
 
-export default reportsReducer;
+export default reportsDetailReducer;

@@ -18,10 +18,10 @@ export const getReportsDetails = data => {
   };
 };
 
-export const getReportDetailsAsync = () => {
+export const getReportDetailsAsync = date => {
   return async dispatch => {
     try {
-      const details = await DetailsApi.getDetails();
+      const details = await DetailsApi.getDetails(date);
       dispatch(getReportsDetails(details.data));
     } catch (error) {
       console.log("Error while loading reports data", error);

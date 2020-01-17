@@ -4,10 +4,11 @@ import { baseApiUrl } from "../config/config";
 const detailsApiUrl = baseApiUrl + "reportsdetails/";
 
 class DetailsApi {
-  static getDetails() {
+  static getDetails(date) {
     return axios({
-      method: "get",
-      url: detailsApiUrl + "getDetails"
+      method: "post",
+      url: detailsApiUrl + "getDetails",
+      data: date
     });
   }
 }

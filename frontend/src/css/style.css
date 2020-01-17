@@ -6800,3 +6800,9 @@ footer ul li a:focus {
   width: 500px;
   height: 650px;
 }
+
+.flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

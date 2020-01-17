@@ -103,12 +103,8 @@ class Reports extends Component {
               </div>
 
               {this.state.isLoading && ( // if doing asyng things
-                <div className={"col-md-12 col-md-offset-6"}>
+                <div className="flexCenter">
                   <ReactLoading type={"bars"} color={"#48c6ef"} />
-                  <p style={{ color: "#48C6EF", margin: "0px" }}>
-                    {" "}
-                    Loading ...
-                  </p>
                 </div>
               )}
 
@@ -135,7 +131,7 @@ class Reports extends Component {
             </div>
           </div>
         </div>
-      </div> 
+      </div>
     );
   }
 }
