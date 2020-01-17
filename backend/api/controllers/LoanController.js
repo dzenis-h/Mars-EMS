@@ -52,11 +52,9 @@ module.exports = {
               const sheets = google.sheets("v4");
               sheets.spreadsheets.values.get(
                 {
-                  auth: auth,
+                  auth,
                   spreadsheetId: config.spreadsheetSettings.spreadsheetId, // id of spreadsheet
-                  range: `${employees[employeeOrderId]["name"]} ${
-                    employees[employeeOrderId]["surname"]
-                  }`, // name of specific employee sheet, ex. Mehmed Jusic
+                  range: `${employees[employeeOrderId]["name"]} ${employees[employeeOrderId]["surname"]}`, // name of specific employee sheet, ex. John Doe
                   majorDimension: "COLUMNS"
                 },
                 (err, response) => {
@@ -66,9 +64,7 @@ module.exports = {
                   if (response.values.length === 0) {
                     reject("No data found.");
                   } else {
-                    const employeeNameAndSurname = `${
-                      employees[employeeOrderId]["name"]
-                    } ${employees[employeeOrderId]["surname"]}`;
+                    const employeeNameAndSurname = `${employees[employeeOrderId]["name"]} ${employees[employeeOrderId]["surname"]}`;
                     const singleEmployeeData = loanService.mapSalaryAndLoansDataFromSpreadsheet(
                       employees[employeeOrderId].jmbg,
                       employeeNameAndSurname,
