@@ -35,6 +35,9 @@ module.exports.routes = {
     view: "homepage"
   },
 
+  // "post /reportsdetails/getDetails/:date": {},
+  // "get /reportsdetails/getDetails": "ReportsDetailsContoller.getDetails",
+
   "delete /ClearData/remove": "ClearDataController.remove"
 
   /***************************************************************************
