@@ -24,7 +24,7 @@ export const updateEmployee = data => {
 
 export const removeEmployee = data => {
   return {
-    type: actionTypes.DISABLE_EMPLOYEE,
+    type: actionTypes.CHANGE_STATUS,
     data
   };
 };
@@ -53,13 +53,13 @@ export const addEmployeeAsync = (e, index) => {
   };
 };
 
-export const removeEmployeeAsync = e => {
+export const removeEmployeeAsync = (row, date) => {
   return async dispatch => {
     try {
-      const employees = await EmployeeApi.removeEmployee(e);
+      const employees = await EmployeeApi.changeEmployeeStatus(row, date);
       dispatch(removeEmployee(employees.data));
     } catch (error) {
-      console.log("error while deleting employee", error);
+      console.log("error while changing the status of a employee", error);
       throw error;
     }
   };

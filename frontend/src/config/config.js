@@ -14,9 +14,9 @@ export const gapi = window.gapi;
 
 // Here goes the base URL (backend) that we use across all the areas of this app
 // When you deploy, this URL has to change to match the domain from where the app is served
-export const baseApiUrl = " http://localhost:1337/server/";
+export const baseApiUrl = "https://hr-ems.herokuapp.com/server/";
 
-// LocalHost: http://localhost:1337/server/
+// Local Host: http://localhost:1337/server/
 // HEROKU: https://hr-ems.herokuapp.com/server/
 
 // Here we add emails that should have access to the app

@@ -6,3 +6,7 @@ node_modules/
 
 # other
 desktop.ini
+frontend/src/config/config.js
+frontend/debug.log
+frontend/src/config/config_dev.js
+frontend/src/config/config.js
