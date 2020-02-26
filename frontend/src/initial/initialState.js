@@ -5,6 +5,5 @@ export default {
   employeesSalaries: [],
   reports: {},
   details: {},
-  loans: {},
   selectedDate: null
 };

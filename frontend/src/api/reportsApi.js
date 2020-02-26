@@ -4,7 +4,7 @@ import { baseApiUrl } from "../config/config";
 const reportsApiUrl = baseApiUrl + "reports/";
 
 class ReportsApi {
-  static getReportsData() {
+  static getReports() {
     return axios({
       method: "get",
       url: reportsApiUrl + "getReports"

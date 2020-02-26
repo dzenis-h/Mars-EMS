@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
@@ -6,9 +6,8 @@ import Home from "../components/home/Home";
 import * as googleSpreadsheetActions from "../actions/googleSpreadsheetActions";
 import * as employeeActions from "../actions/employeeActions";
 import * as reportsActions from "../actions/reportsActions";
-import * as loansActions from "../actions/loansActions";
 
-class HomeContainerComponent extends Component {
+class HomeContainerComponent extends React.Component {
   render() {
     return (
       <div>
@@ -22,10 +21,8 @@ class HomeContainerComponent extends Component {
           }
           getEmployeesAsync={this.props.actions.getEmployeesAsync}
           getReportsAsync={this.props.actions.getReportsAsync}
-          getLoansAsync={this.props.actions.getLoansAsync}
           employees={this.props.employees}
           reports={this.props.reports}
-          loans={this.props.loans}
           history={this.props.history}
         />
       </div>
@@ -36,7 +33,6 @@ class HomeContainerComponent extends Component {
 HomeContainerComponent.propTypes = {
   employees: PropTypes.array,
   reports: PropTypes.object,
-  loans: PropTypes.object,
   isAppGoogleSpreadsheetAuthenticated: PropTypes.bool,
   actions: PropTypes.object.isRequired
 };
@@ -46,20 +42,14 @@ const mapStateToProps = state => {
     isAppGoogleSpreadsheetAuthenticated:
       state.isAppGoogleSpreadsheetAuthenticated,
     employees: state.employees,
-    reports: state.reports,
-    loans: state.loans
+    reports: state.reports
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     actions: bindActionCreators(
-      {
-        ...googleSpreadsheetActions,
-        ...employeeActions,
-        ...reportsActions,
-        ...loansActions
-      },
+      { ...googleSpreadsheetActions, ...employeeActions, ...reportsActions },
       dispatch
     )
   };

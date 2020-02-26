@@ -119,6 +119,7 @@ export default class SalariesTabs extends Component {
 
   confirmSalaryAction = () => {
     this.confirmTabAction();
+    console.log(this.props);
     switch (this.state.activeTab.id) {
       case 1:
         this.props.updateEmployeesSalaryRaises(this.state.displayData);

@@ -48,17 +48,14 @@ class Home extends Component {
     }
   }
 
-  // After the API code gets verified, the user gets redirected to the Home component and additionally,
-  //  the app fires off 3 action creators  => To get the employees, reports, and loans-related data.
   verifyCode = e => {
     e.preventDefault();
-    const { code } = this.state;
-    SpreadSheetApi.verifyCode(code)
+    const enteredCode = this.state.code;
+    SpreadSheetApi.verifyCode(enteredCode)
       .then(res => {
         this.props.setGoogleSpreadsheetAuth();
-        // this.props.getEmployeesAsync();
-        // this.props.getReportsAsync();
-        // this.props.getLoansAsync();
+        this.props.getEmployeesAsync();
+        this.props.getReportsAsync();
       })
       .catch(err => {
         alert("Code is invalid");
@@ -359,8 +356,6 @@ class Home extends Component {
 Home.propTypes = {
   isAppGoogleSpreadsheetAuthenticated: PropTypes.bool,
   employees: PropTypes.array,
-  reports: PropTypes.object,
-  loans: PropTypes.object,
   setGoogleSpreadsheetAuth: PropTypes.func.isRequired,
   unsetGoogleSpreadsheetAuth: PropTypes.func.isRequired
 };

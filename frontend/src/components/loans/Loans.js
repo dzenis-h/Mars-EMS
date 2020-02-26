@@ -27,7 +27,7 @@ class Loans extends Component {
         unit: "",
         description: ""
       },
-      loanData: [],
+      kredit: [],
       isLoading: true,
       open: false
     };
@@ -74,30 +74,22 @@ class Loans extends Component {
 
   addLoan = event => {
     event.preventDefault();
-    const {
-      amount,
-      installment,
-      unit,
-      description,
-      employee
-    } = this.state.loanForm;
-
-    let newLoan = {
-      amount,
-      installment,
-      unit,
+    let theLoan = {
+      amount: this.state.loanForm.amount,
+      installment: this.state.loanForm.installment,
+      unit: this.state.loanForm.unit,
       date: new Date(),
-      description,
-      employee: employee.value
+      description: this.state.loanForm.description,
+      employee: this.state.loanForm.employee.value
     };
     this.setState(prevState => ({
-      loanData: [...prevState.loanData, newLoan]
+      kredit: [...prevState.kredit, theLoan]
     }));
     setTimeout(() => {
-      let LoansContent = Object.assign([], this.state.loanData);
-      LoansContent.map(loan => {
-        loan.employeeJMBG = loan.employee.jmbg;
-        delete loan.employee;
+      let LoansContent = Object.assign([], this.state.kredit);
+      LoansContent.map(penal => {
+        penal.employeeJMBG = penal.employee.jmbg;
+        delete penal.employee;
         return LoansContent;
       });
       this.saveBulkEmployees(LoansContent);
@@ -125,75 +117,66 @@ class Loans extends Component {
       unit: "",
       description: ""
     };
-    const loanData = [];
+    const kredit = [];
     this.setState({
       loanForm,
-      loanData
+      kredit
     });
   };
 
-  setLoansData = () => {
-    const { loans } = this.props;
-    const data = Object.values(loans);
-    if (data) {
-      data.map(loan => {
-        if (loan.remainingPayment > 0) {
+  relevantLoansData = () => {
+    LoansApi.getLoansData().then(res => {
+      let backendData = Object.assign({}, res.data);
+      let obj = Object.values(backendData);
+      let result = obj.map(a => {
+        if (a.remainingPayment > 0) {
           this.setState(prevState => ({
             currentSession: {
-              peopleData: [...prevState.currentSession.peopleData, loan.name],
-              activeLoan: [
-                ...prevState.currentSession.activeLoan,
-                loan.lastLoan
-              ],
+              ...prevState.currentEmployee,
+              peopleData: [...prevState.currentSession.peopleData, a.name],
+              activeLoan: [...prevState.currentSession.activeLoan, a.lastLoan],
               currentInstallment: [
                 ...prevState.currentSession.currentInstallment,
-                loan.lastInstallment
+                a.lastInstallment
               ],
-              loansData: [...prevState.currentSession.loansData, loan.loansSum],
+              loansData: [...prevState.currentSession.loansData, a.loansSum],
               installmentsData: [
                 ...prevState.currentSession.installmentsData,
-                loan.installmentsSum
+                a.installmentsSum
               ],
               remainingPaymentData: [
                 ...prevState.currentSession.remainingPaymentData,
-                loan.remainingPayment
+                a.remainingPayment
               ],
-              notesData: [...prevState.currentSession.notesData, loan.notes]
+              notesData: [...prevState.currentSession.notesData, a.notes]
             },
-            isLoading: loan.isLoading
+            isLoading: false
           }));
         }
-        return {};
+        if (a.remainingPayment === 0) {
+          this.setState({ isLoading: false });
+        }
+        return result;
       });
-    }
+    });
   };
 
-  componentDidMount() {
-    this.setLoansData();
-  }
-
-  componentWillReceiveProps(newProps) {
-    if (newProps.isLoading !== this.props.isLoading) {
-      setTimeout(() => {
-        this.setLoansData();
-      }, 100);
-    }
+  componentWillMount() {
+    this.relevantLoansData(this.props);
   }
 
   render() {
     const {
-      currentSession: {
-        peopleData,
-        activeLoan,
-        currentInstallment,
-        loansData,
-        installmentsData,
-        remainingPaymentData,
-        notesData
-      },
-      loanForm,
-      isLoading
-    } = this.state;
+      peopleData,
+      activeLoan,
+      currentInstallment,
+      loansData,
+      installmentsData,
+      remainingPaymentData,
+      notesData
+    } = this.state.currentSession;
+
+    const { loanForm } = this.state;
 
     const employeesFormated = this.props.employees
       .filter(item => item.enddate === undefined)
@@ -329,13 +312,17 @@ class Loans extends Component {
                   </p>
                 </div>
 
-                {isLoading && ( // if doing asyng things
-                  <div className="flexCenter">
+                {this.state.isLoading && ( // if doing asyng things
+                  <div className={"col-md-12 col-md-offset-6"}>
                     <ReactLoading type={"bars"} color={"#48c6ef"} />
+                    <p style={{ color: "#48C6EF", margin: "0px" }}>
+                      {" "}
+                      Loading ...
+                    </p>
                   </div>
                 )}
 
-                {!isLoading &&
+                {!this.state.isLoading &&
                   this.state.currentSession.peopleData.length === 0 && (
                     <div className="portlet-body no-penalties__wrapper">
                       <img
@@ -396,8 +383,8 @@ class Loans extends Component {
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Accumulated Loans</th>
-                  <th>Accumulated Installments</th>
+                  <th>Total loan</th>
+                  <th>Total Installment</th>
                   <th>Still Remaining</th>
                 </tr>
               </thead>

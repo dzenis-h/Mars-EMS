@@ -6,14 +6,12 @@ import googleSpreadSheetAuthReducer from "./googleSpreadsheetAuthReducer";
 import generateSalariesReducer from "./generateSalariesReducer";
 import reports from "./reportsReducer";
 import reportsDetails from "./detailsReducer";
-import loans from "./loansReducer";
 import selectedDate from "./selectedDateReducer";
 
 const rootReducer = combineReducers({
   employees,
   reports,
   reportsDetails,
-  loans,
   selectedDate,
   loggedUser,
   form: formReducer,
