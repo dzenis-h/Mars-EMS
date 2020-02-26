@@ -3,17 +3,11 @@
 # dependencies
 /node_modules
 
-# config
-/src/config/config.js
-
 # testing
 /coverage
 
 # production
 /build
-
-# config files:
-src/config/config.js
 
 # misc
 .DS_Store
@@ -22,7 +16,6 @@ src/config/config.js
 .env.test.local
 .env.production.local
 
-debug.log*
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

@@ -41,8 +41,6 @@
 
 config/local.js
 frontend
-config/dev-configs.js
-client_secret.json
 
 
 

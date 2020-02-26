@@ -6806,21 +6806,3 @@ footer ul li a:focus {
   justify-content: center;
   align-items: center;
 }
-
-span.rodal-close {
-  cursor: pointer;
-  top: 1px;
-  right: 1px;
-  width: 15px;
-  height: 15px;
-}
-
-span.rodal-close::before,
-span.rodal-close::after {
-  background: #d6440e;
-}
-
-div.rodal-dialog
-div.rodal-zoom-enter {
-  width: fit-content !important;
-}

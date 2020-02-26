@@ -388,8 +388,7 @@ class Loans extends Component {
             height: "auto",
             bottom: "auto",
             top: "50%",
-            transform: "translateY(-50%)",
-            width: "fit-content"
+            transform: "translateY(-50%)"
           }}
         >
           {
@@ -397,9 +396,9 @@ class Loans extends Component {
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Loans [totaled]</th>
-                  <th>Installments [totaled]</th>
-                  <th>Remaining Debt</th>
+                  <th>Accumulated Loans</th>
+                  <th>Accumulated Installments</th>
+                  <th>Still Remaining</th>
                 </tr>
               </thead>
               <tbody>{modalData}</tbody>

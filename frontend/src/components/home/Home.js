@@ -56,9 +56,9 @@ class Home extends Component {
     SpreadSheetApi.verifyCode(code)
       .then(res => {
         this.props.setGoogleSpreadsheetAuth();
-        this.props.getEmployeesAsync();
-        this.props.getReportsAsync();
-        this.props.getLoansAsync();
+        // this.props.getEmployeesAsync();
+        // this.props.getReportsAsync();
+        // this.props.getLoansAsync();
       })
       .catch(err => {
         alert("Code is invalid");
