@@ -15,9 +15,6 @@ export const gapi = window.gapi;
 // When you deploy, this URL has to change to match the domain from where the app is served
 export const baseApiUrl = "http://localhost:1337/server/";
 
-// LocalHost: http://localhost:1337/server/
-// HEROKU: https://hr-ems.herokuapp.com/server/
-
 // Here we add emails that should have access to the app
 export const emails = [
   // Add or remove emails in order to give or remove access
@@ -25,5 +22,5 @@ export const emails = [
   // Right now every Google account is able to login (if they grant access to their basic info)
 
   // EMIAL RESTIRICTION IS CURRENTLY OFF. - CHECK OUT THE 'Login.js' FILE
-  "test@gmail.com"
+  "bigga.test.2018@gmail.com"
 ];

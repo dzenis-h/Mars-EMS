@@ -11,7 +11,7 @@ export const getReports = data => {
 export const getReportsAsync = () => {
   return async dispatch => {
     try {
-      const reports = await ReportsApi.getReports();
+      const reports = await ReportsApi.getReportsData();
       dispatch(getReports(reports.data));
     } catch (error) {
       console.log("Error while loading reports", error);

@@ -29,6 +29,7 @@
     "lodash": "^4.17.15",
     "moment": "2.24.0",
     "node-fetch": "^2.3.0",
+    "nodemon": "^1.18.9",
     "rc": "^1.2.8",
     "sails": "0.12.14",
     "sails-disk": "~0.10.9",
@@ -36,11 +37,10 @@
     "sails-mongo": "^0.12.3"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "sails lift",
     "debug": "node debug app.js",
-    "backend": "nodemon app.js",
-    "frontend": "npm run start --prefix frontend",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "frontend": "npm run start --prefix frontend"
   },
   "main": "app.js",
   "engines": {

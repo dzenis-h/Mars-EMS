@@ -1,9 +1,5 @@
-# dependencies
 node_modules/
-config-x.js
 
 # production
 /build
-
-# other
-desktop.ini
+frontend/src/config/config_dev.js

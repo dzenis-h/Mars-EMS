@@ -46,7 +46,7 @@ finalPreparation = async data => {
 
   const theYears = await longReduce(data.uniqueYears); // returning unique and relevant years
   const theMonths = await longReduce(data.uniqueMonths); // returning unique and relevant months
-  const longestSalary = await longReduce(data.netSumArr); // returning the Longest running salary
+  const longestSalary = await longReduce(data.netSumArr); // returning the longest running salary
 
   // Getting the numer of  eployees depending on the date
   const activeEmps = Array.from(longestSalary, (_, i) =>
@@ -121,16 +121,18 @@ getDetailedData = async inputData => {
 
 // Making sure the last relevant (active) values are used
 longReduce = longest => {
-  let val;
-  val = longest.reduce(function(a, i, ii) {
-    if (ii === 1) {
+  const val = longest.reduce(
+    (a, i, ii) => {
+      if (ii === 1) {
+        return a;
+      }
+      if (i.length > a.length) {
+        return i;
+      }
       return a;
-    }
-    if (i.length > a.length) {
-      return i;
-    }
-    return a;
-  });
+    },
+    [0]
+  );
   return val;
 };
 

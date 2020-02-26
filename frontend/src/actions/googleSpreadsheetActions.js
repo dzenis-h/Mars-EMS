@@ -2,6 +2,7 @@ import * as actionTypes from "../actionTypes/actionTypes";
 import SpreadSheetApi from "../api/spreadsheetApi";
 import { getEmployeesAsync } from "./employeeActions";
 import { getReportsAsync } from "./reportsActions";
+import { getLoansAsync } from "./loansActions";
 
 export const setGoogleSpreadsheetAuth = data => {
   return {
@@ -25,6 +26,7 @@ export const checkIfAppIsGoogleSpreadsheetAuthenticated = () => {
         dispatch(setGoogleSpreadsheetAuth(res.data));
         dispatch(getEmployeesAsync());
         dispatch(getReportsAsync());
+        dispatch(getLoansAsync());
       } else {
         dispatch(unsetGoogleSpreadsheetAuth(res.data));
       }

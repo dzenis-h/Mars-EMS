@@ -1,3 +1,5 @@
+const MONGO_URI = require("./dev-configs").MONGO_URI;
+
 /**
  * Connections
  * (sails.config.connections)
@@ -50,7 +52,7 @@ module.exports.connections = {
 
   mongodbServer: {
     adapter: "sails-mongo",
-    url: "mongodb://username:password$@ds111410.mlab.com:11410/project"
+    url: MONGO_URI
   }
   /***************************************************************************
    *                                                                          *

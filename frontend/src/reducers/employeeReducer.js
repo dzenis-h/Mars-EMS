@@ -9,24 +9,16 @@ const employeeReducer = (state = initialState.employees, action) => {
     case actionTypes.ADD_EMPLOYEE:
       return [...state, action.data];
 
-    case actionTypes.DISABLE_EMPLOYEE:
+    case actionTypes.CHANGE_STATUS:
       return state.map(item => {
         if (item.rowNumber === action.data.disabledEmployeeRowNumber) {
           return Object.assign({}, item, {
-            enddate: new Date()
+            // enddate: new Date()
+            enddate: action.data.newEndDate
           });
         }
         return item;
       });
-
-    // case actionTypes.UPDATE_EMPLOYEE:
-    //     debugger;
-    //     return state.map((item) => {
-    //         if (item.id === action.data.id) {
-    //             return action.data;
-    //         }
-    //         return item
-    //     });
 
     default:
       return state;

@@ -27,7 +27,7 @@ class Loans extends Component {
         unit: "",
         description: ""
       },
-      kredit: [],
+      loanData: [],
       isLoading: true,
       open: false
     };
@@ -74,22 +74,30 @@ class Loans extends Component {
 
   addLoan = event => {
     event.preventDefault();
-    let theLoan = {
-      amount: this.state.loanForm.amount,
-      installment: this.state.loanForm.installment,
-      unit: this.state.loanForm.unit,
+    const {
+      amount,
+      installment,
+      unit,
+      description,
+      employee
+    } = this.state.loanForm;
+
+    let newLoan = {
+      amount,
+      installment,
+      unit,
       date: new Date(),
-      description: this.state.loanForm.description,
-      employee: this.state.loanForm.employee.value
+      description,
+      employee: employee.value
     };
     this.setState(prevState => ({
-      kredit: [...prevState.kredit, theLoan]
+      loanData: [...prevState.loanData, newLoan]
     }));
     setTimeout(() => {
-      let LoansContent = Object.assign([], this.state.kredit);
-      LoansContent.map(penal => {
-        penal.employeeJMBG = penal.employee.jmbg;
-        delete penal.employee;
+      let LoansContent = Object.assign([], this.state.loanData);
+      LoansContent.map(loan => {
+        loan.employeeJMBG = loan.employee.jmbg;
+        delete loan.employee;
         return LoansContent;
       });
       this.saveBulkEmployees(LoansContent);
@@ -117,66 +125,75 @@ class Loans extends Component {
       unit: "",
       description: ""
     };
-    const kredit = [];
+    const loanData = [];
     this.setState({
       loanForm,
-      kredit
+      loanData
     });
   };
 
-  relevantLoansData = () => {
-    LoansApi.getLoansData().then(res => {
-      let backendData = Object.assign({}, res.data);
-      let obj = Object.values(backendData);
-      let result = obj.map(a => {
-        if (a.remainingPayment > 0) {
+  setLoansData = () => {
+    const { loans } = this.props;
+    const data = Object.values(loans);
+    if (data) {
+      data.map(loan => {
+        if (loan.remainingPayment > 0) {
           this.setState(prevState => ({
             currentSession: {
-              ...prevState.currentEmployee,
-              peopleData: [...prevState.currentSession.peopleData, a.name],
-              activeLoan: [...prevState.currentSession.activeLoan, a.lastLoan],
+              peopleData: [...prevState.currentSession.peopleData, loan.name],
+              activeLoan: [
+                ...prevState.currentSession.activeLoan,
+                loan.lastLoan
+              ],
               currentInstallment: [
                 ...prevState.currentSession.currentInstallment,
-                a.lastInstallment
+                loan.lastInstallment
               ],
-              loansData: [...prevState.currentSession.loansData, a.loansSum],
+              loansData: [...prevState.currentSession.loansData, loan.loansSum],
               installmentsData: [
                 ...prevState.currentSession.installmentsData,
-                a.installmentsSum
+                loan.installmentsSum
               ],
               remainingPaymentData: [
                 ...prevState.currentSession.remainingPaymentData,
-                a.remainingPayment
+                loan.remainingPayment
               ],
-              notesData: [...prevState.currentSession.notesData, a.notes]
+              notesData: [...prevState.currentSession.notesData, loan.notes]
             },
-            isLoading: false
+            isLoading: loan.isLoading
           }));
         }
-        if (a.remainingPayment === 0) {
-          this.setState({ isLoading: false });
-        }
-        return result;
+        return {};
       });
-    });
+    }
   };
 
-  componentWillMount() {
-    this.relevantLoansData(this.props);
+  componentDidMount() {
+    this.setLoansData();
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (newProps.isLoading !== this.props.isLoading) {
+      setTimeout(() => {
+        this.setLoansData();
+      }, 100);
+    }
   }
 
   render() {
     const {
-      peopleData,
-      activeLoan,
-      currentInstallment,
-      loansData,
-      installmentsData,
-      remainingPaymentData,
-      notesData
-    } = this.state.currentSession;
-
-    const { loanForm } = this.state;
+      currentSession: {
+        peopleData,
+        activeLoan,
+        currentInstallment,
+        loansData,
+        installmentsData,
+        remainingPaymentData,
+        notesData
+      },
+      loanForm,
+      isLoading
+    } = this.state;
 
     const employeesFormated = this.props.employees
       .filter(item => item.enddate === undefined)
@@ -312,17 +329,13 @@ class Loans extends Component {
                   </p>
                 </div>
 
-                {this.state.isLoading && ( // if doing asyng things
-                  <div className={"col-md-12 col-md-offset-6"}>
+                {isLoading && ( // if doing asyng things
+                  <div className="flexCenter">
                     <ReactLoading type={"bars"} color={"#48c6ef"} />
-                    <p style={{ color: "#48C6EF", margin: "0px" }}>
-                      {" "}
-                      Loading ...
-                    </p>
                   </div>
                 )}
 
-                {!this.state.isLoading &&
+                {!isLoading &&
                   this.state.currentSession.peopleData.length === 0 && (
                     <div className="portlet-body no-penalties__wrapper">
                       <img
@@ -375,7 +388,8 @@ class Loans extends Component {
             height: "auto",
             bottom: "auto",
             top: "50%",
-            transform: "translateY(-50%)"
+            transform: "translateY(-50%)",
+            width: "fit-content"
           }}
         >
           {
@@ -383,9 +397,9 @@ class Loans extends Component {
               <thead>
                 <tr>
                   <th>Name</th>
-                  <th>Total loan</th>
-                  <th>Total Installment</th>
-                  <th>Still Remaining</th>
+                  <th>Loans [totaled]</th>
+                  <th>Installments [totaled]</th>
+                  <th>Remaining Debt</th>
                 </tr>
               </thead>
               <tbody>{modalData}</tbody>

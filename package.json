@@ -1,11 +1,9 @@
 {
-  "name": "mars-ems",
-  "version": "2.0.0",
+  "name": "mars-ems__root",
+  "version": "1.6.0",
   "description": "Employee Management System",
   "main": "index.js",
-  "dependencies": {
-    "concurrently": "^4.1.1"
-  },
+  "dependencies": {},
   "keywords": [
     "React",
     "Redux",
@@ -14,9 +12,13 @@
     "Sails",
     "Bootstrap",
     "MongoDB",
-    "JavaScript"
+    "JavaScript",
+    "Google OAuth",
+    "Spreadsheets API"
   ],
-  "devDependencies": {},
+  "devDependencies": {
+    "concurrently": "^4.1.1"
+  },
   "scripts": {
     "start": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm start\" "
   },

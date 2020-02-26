@@ -40,12 +40,8 @@
 ################################################
 
 config/local.js
-frontend
-backend\config\dev-configs.js
+config/dev-configs.js
 client_secret.json
-
-
-
 
 ################################################
 # Dependencies
@@ -83,6 +79,7 @@ bower_components
 .tmp
 dump.rdb
 
+debug.log*
 
 
 

@@ -75,8 +75,8 @@ class About extends Component {
               which, you'll be able to interact and test the app to it's
               fullest. You can find the links for them, and I hope you do if you
               check out the instructions PDF file, which you can find in the
-              bottom-right corner. It also uses MongoDB (mLab) to store the
-              temporary data of the app.
+              bottom-right corner. It also uses MongoDB to store the temporary
+              data of the app.
             </p>
             <p>
               If you have any further questions I'll be more than happy to

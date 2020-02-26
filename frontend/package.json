@@ -1,6 +1,6 @@
 {
-  "name": "mars-ems",
-  "version": "2.0.0",
+  "name": "mars-ems__frontend",
+  "version": "1.6.0",
   "private": true,
   "author": "Dzenis H.",
   "dependencies": {

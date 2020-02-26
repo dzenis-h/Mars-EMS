@@ -32,18 +32,19 @@ module.exports = {
   },
 
   disableEmployee: (req, res) => {
-    const rowNumber = req.body.rowNumber;
+    const { rowNumber, date } = req.body;
     authentication.authenticate().then(auth => {
       const sheets = google.sheets("v4");
       sheets.spreadsheets.values.update(
         {
           auth: auth,
           spreadsheetId: config.spreadsheetSettings.spreadsheetId, // id of spreadsheet
-          range: `${config.spreadsheetSettings.employeeSheetId}!I${rowNumber}`, // name of employee endDate column, rowNumber-row of desired item, I column end date
+          range: `${config.spreadsheetSettings.employeeSheetId}!I${rowNumber}`, // name of employee endDate column, rowNumber-row of desired item
           valueInputOption: "USER_ENTERED",
           resource: {
             range: `${config.spreadsheetSettings.employeeSheetId}!I${rowNumber}`,
-            values: [[moment().format("MM-DD-YYYY")]] //current date
+            // values: [[moment().format("MM-DD-YYYY")]] //current date
+            values: [[date]] //current date || no date ''
           }
         },
         (err, response) => {
@@ -51,7 +52,10 @@ module.exports = {
             res.serverError(err);
             return;
           } else {
-            res.send({ disabledEmployeeRowNumber: rowNumber });
+            res.send({
+              disabledEmployeeRowNumber: rowNumber,
+              newEndDate: date
+            });
           }
         }
       );
