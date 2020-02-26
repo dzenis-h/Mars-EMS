@@ -1,5 +1,6 @@
 # dependencies
 node_modules/
+config-x.js
 
 # production
 /build
