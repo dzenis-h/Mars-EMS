@@ -42,6 +42,7 @@
 config/local.js
 config/dev-configs.js
 client_secret.json
+backend\config\dev-configs.js
 
 ################################################
 # Dependencies

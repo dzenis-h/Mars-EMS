@@ -1,5 +1,3 @@
 node_modules/
-
-# production
-/build
 frontend/src/config/config_dev.js
+backend/config/dev-configs.js
