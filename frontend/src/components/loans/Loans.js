@@ -236,7 +236,7 @@ class Loans extends Component {
                 <div className="portlet-header">
                   <h4 className="portlet-title">Enter multiple loans</h4>
                 </div>
-                <form className="portlet-body">
+                <form className="portlet-body" onSubmit={this.addLoan}>
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Employee</label>
                     <Select
@@ -244,6 +244,7 @@ class Loans extends Component {
                       value={loanForm.employee}
                       onChange={this.handleEmployeeChange}
                       options={employeesFormated}
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -256,6 +257,7 @@ class Loans extends Component {
                       name="amount"
                       onChange={this.handleValueChange}
                       value={loanForm.amount}
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -268,6 +270,7 @@ class Loans extends Component {
                       name="installment"
                       onChange={this.handleValueChange}
                       value={loanForm.installment}
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -280,6 +283,7 @@ class Loans extends Component {
                         { value: "$", label: "$" },
                         { value: "BAM", label: "BAM" }
                       ]}
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -292,13 +296,14 @@ class Loans extends Component {
                       name="description"
                       onChange={this.handleValueChange}
                       value={loanForm.description}
+                      required
                     />
                   </div>
                   <button
-                    type="button"
+                    type="submit"
                     style={{ float: "left" }}
                     className="btn btn-primary"
-                    onClick={this.addLoan}
+                    // onClick={this.addLoan}
                   >
                     Save loan(s)
                   </button>

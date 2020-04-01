@@ -94,10 +94,11 @@ class Home extends Component {
   handleValueChange = event => {
     event.preventDefault();
     let penaltyForm = this.state.penaltyForm;
-    let name = event.target.name;
-    let value = event.target.value;
+    let { name, value } = event.target;
     penaltyForm[name] = value;
-    this.setState({ penaltyForm });
+    if (name && value) {
+      this.setState({ penaltyForm });
+    }
   };
 
   addPenalty = event => {
@@ -109,9 +110,11 @@ class Home extends Component {
       description: this.state.penaltyForm.description,
       employee: this.state.penaltyForm.employee.value
     };
-    this.setState(prevState => ({
-      penalties: [...prevState.penalties, penalty]
-    }));
+    if (this.state.penaltyForm.employee.value) {
+      this.setState(prevState => ({
+        penalties: [...prevState.penalties, penalty]
+      }));
+    }
   };
 
   save = () => {
@@ -247,7 +250,7 @@ class Home extends Component {
                 <div className="portlet-header">
                   <h4 className="portlet-title">Enter multiple penalties</h4>
                 </div>
-                <form className="portlet-body">
+                <form className="portlet-body" onSubmit={this.addPenalty}>
                   <div className="form-group">
                     <label htmlFor="exampleInputEmail1">Employee</label>
                     <Select
@@ -255,6 +258,7 @@ class Home extends Component {
                       value={penaltyForm.employee}
                       onChange={this.handleEmployeeChange}
                       options={employeesFormated}
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -267,6 +271,7 @@ class Home extends Component {
                       name="amount"
                       onChange={this.handleValueChange}
                       value={penaltyForm.amount}
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -279,6 +284,7 @@ class Home extends Component {
                         { value: "%", label: "%" },
                         { value: "BAM", label: "BAM" }
                       ]}
+                      required
                     />
                   </div>
                   <div className="form-group">
@@ -291,13 +297,10 @@ class Home extends Component {
                       name="description"
                       onChange={this.handleValueChange}
                       value={penaltyForm.description}
+                      required
                     />
                   </div>
-                  <button
-                    type="button"
-                    className="btn btn-primary"
-                    onClick={this.addPenalty}
-                  >
+                  <button type="submit" className="btn btn-primary">
                     Add penalty
                   </button>
                 </form>
@@ -337,7 +340,7 @@ class Home extends Component {
                     </table>
 
                     <button
-                      type="button"
+                      type="submit"
                       className="btn btn-primary"
                       onClick={this.save}
                     >
