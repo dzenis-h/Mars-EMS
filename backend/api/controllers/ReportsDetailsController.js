@@ -2,53 +2,50 @@ const google = require("googleapis");
 const authentication = require("../../authentication");
 const config = require("../../config/spreadsheet/settings");
 const axios = require("axios");
-const moment = require("moment");
-moment.suppressDeprecationWarnings = true; // removing those Deprecation Warnings that aren't relavant
 const reportsService = require("../services/ReportsService");
 const url = require("../../config/baseUrl");
-// const { removeSelecetedDate } = require("../controllers/ClearDataController");
+const promisify = require("util").promisify;
+const moment = require("moment");
+moment.suppressDeprecationWarnings = true; // removing those Deprecation Warnings that aren't relavant
 
 module.exports = {
   getDetails: async (req, res) => {
     const auth = await authentication.authenticate();
     const sheets = google.sheets("v4");
-    sheets.spreadsheets.values.get(
-      {
-        auth: auth,
-        spreadsheetId: config.spreadsheetSettings.spreadsheetId, // id of spreadsheet
-        range: config.spreadsheetSettings.employeeSheetId // name of employee spreadsheet and range- get all cells
-      },
-      async (err, response) => {
-        if (err) {
-          res.serverError(err);
-          return;
+    const getValues = promisify(sheets.spreadsheets.values.get);
+    try {
+      const response = await getValues({
+        auth,
+        spreadsheetId: config.spreadsheetSettings.spreadsheetId,
+        range: config.spreadsheetSettings.employeeSheetId,
+      });
+      const rows = response.values; // response-all cells
+      const updatedData = reportsService.giveMeEmps(rows);
+      let finalData = {};
+
+      if (req.body) {
+        // let date = 201811;
+        const { selectedDate } = req.body;
+        const prepData = await finalDetailsPreparation(
+          selectedDate,
+          updatedData
+        );
+        finalData = await Promise.all(prepData);
+        // FE expects an object -> TO-DO: Change that!
+        const finalObj = Object.assign(...finalData, {});
+        if (finalObj || finalObj.length !== 0) {
+          res.ok(finalObj);
+        } else {
+          res.err("No data found.");
         }
-        const rows = response.values; // response-all cells
-        const updatedData = reportsService.giveMeEmps(rows);
-
-        let finalData;
-
-        // console.log(await req.body);
-        if (req.body) {
-          // let hamza = 201811;
-          let { selectedDate } = req.body;
-          finalData = await finalDetailsPreparation(selectedDate, updatedData);
-        }
-
-        // Sending the server data to frontend
-        setTimeout(() => {
-          if (updatedData.length === 0) {
-            res.err("No data found.");
-          } else {
-            res.ok(finalData);
-          }
-        }, 1500); // Some of these calculations are pretty heavy - TODO: Make it more efficient!
       }
-    );
-  }
+    } catch (err) {
+      console.log(err);
+    }
+  },
 };
 
-finalDetailsPreparation = async (datum, updatedData) => {
+finalDetailsPreparation = async (date, updatedData) => {
   const prepData = {};
 
   // Getting the relevant FULL salary info
@@ -56,24 +53,18 @@ finalDetailsPreparation = async (datum, updatedData) => {
   const empData = [];
 
   try {
-    // const apiData = await getApiData();
-    const preparingData = await relevantEmps(datum, updatedData);
+    const preparingData = await relevantEmps(date, updatedData);
 
     // Sending the req to get the unique salary data
-    preparingData.map(name => {
-      getEmployee(name)
-        .then(sal => {
-          salaryData.push(sal.data);
-          empData.push(name);
-        })
-        .then(data => {
-          return getRelevantSalary(salaryData, datum).then(onlyRelevant => {
-            prepData.names = empData;
-            prepData.salaryInfo = onlyRelevant;
-          });
-        });
+    return preparingData.map(async (name) => {
+      const salary = await getEmployee(name);
+      salaryData.push(salary.data);
+      empData.push(name);
+      const onlyRelevant = await getRelevantSalary(salaryData, date);
+      prepData.names = empData;
+      prepData.salaryInfo = onlyRelevant;
+      return prepData;
     });
-    return prepData;
   } catch (error) {
     console.log(error);
   }
@@ -83,21 +74,13 @@ getRelevantSalary = async (salaryData, selectedDate) => {
   return await relevantSalary(salaryData, selectedDate);
 };
 
-// getApiData = async () => {
-//   const res = await axios.get(`${url.baseUrl}/api`);
-//   const selectedDate = res.data.pop().selectedDate; // Getting the 'selectedDate'
-//   // removeSelecetedDate();
-//   return selectedDate;
-//   // return +201803;
-// };
-
 (relevantEmps = (date, data) => {
   let relevantNames = [];
   let finalNames = [];
 
-  // let xo = 201803;
+  // let date = 201803;
   // IF THEY STARTED WORKING BEFORE THE SELECTED DATE AND STOPPED WORKING AFTER THAT DATE
-  data.forEach(emp => {
+  data.forEach((emp) => {
     //  2013 - 2012 - 2014
     if (
       (date > parseInt(moment(emp.startdate).format("YYYYMM"), 10) &&
@@ -116,17 +99,10 @@ getRelevantSalary = async (salaryData, selectedDate) => {
   // Getting only the relevant salary data
   (relevantSalary = (sal, api) => {
     let relevantData = [];
-    sal.map(x => {
-      x.map(y => {
+    sal.map((x) => {
+      x.map((y) => {
         if (
-          api ==
-            parseInt(
-              y.year +
-                moment()
-                  .month(y.month)
-                  .format("MM"),
-              10
-            ) &&
+          api == parseInt(y.year + moment().month(y.month).format("MM"), 10) &&
           y.totalNetSalary !== undefined
         ) {
           relevantData.push(y);
@@ -136,9 +112,9 @@ getRelevantSalary = async (salaryData, selectedDate) => {
     return relevantData;
   }),
   // Making the req to get the relevant salary info
-  (getEmployee = async value => {
+  (getEmployee = async (value) => {
     return await axios({
       method: "get",
-      url: `${url.baseUrl}/employee/getEmployee?employeeSheetName=${value}`
+      url: `${url.baseUrl}/employee/getEmployee?employeeSheetName=${value}`,
     });
   });
