@@ -31,7 +31,7 @@
     "node-fetch": "^2.3.0",
     "nodemon": "^1.18.9",
     "rc": "^1.2.8",
-    "sails": "0.12.14",
+    "sails": "1.5.3",
     "sails-disk": "~0.10.9",
     "sails-hook-autoreload": "^0.14.3",
     "sails-mongo": "^0.12.3"
