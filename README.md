@@ -1,5 +1,11 @@
 ##
-
+![GitHub repo size](https://img.shields.io/github/repo-size/dzenis-h/digitalCV)
+![GitHub contributors](https://img.shields.io/github/contributors/dzenis-h/digitalCV)
+![GitHub stars](https://img.shields.io/github/stars/dzenis-h/digitalCV?style=social)
+![GitHub forks](https://img.shields.io/github/forks/dzenis-h/digitalCV?style=social)
+[![LinkedIn Follow](https://img.shields.io/badge/-Follow-blue?style=social&logo=linkedin&link=https://www.linkedin.com/in/dzenis-h/)](https://www.linkedin.com/in/dzenis-h/)
+[![GitHub Follow](https://img.shields.io/badge/-Follow-black?style=social&logo=github&link=https://github.com/dzenis-h)](https://github.com/dzenis-h)
+##
 # <img src="https://raw.githubusercontent.com/dzenis-h/Mars-EMS/master/frontend/public/favicon.ico" width="32" height="32" style="padding: 5px"> Mars-EMS
 
 ## Overview 📂
