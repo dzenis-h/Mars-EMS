@@ -38,8 +38,6 @@ It helps with generating salaries, penalties, bonuses, etc. Employing a new staf
 
 <img src="https://raw.githubusercontent.com/dzenis-h/Mars-EMS/c0ea5eaad953548777c7f006faf65081f41b0ea1/stack.svg" width="500" height="300">
 
-I will create an "Instructions" section containing the text you provided. Here is what I came up with:
-
 ## Instructions 📝
 
 In order to run & use this app locally, follow these steps:
