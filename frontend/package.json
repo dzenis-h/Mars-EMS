@@ -26,7 +26,7 @@
     "react-redux": "^5.0.7",
     "react-responsive-modal": "^3.0.2",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.17",
+    "react-scripts": "1.1.5",
     "react-select": "^1.2.1",
     "react-toastify": "^4.0.1",
     "react-widgets": "~4.1.1",
